@@ -54,9 +54,6 @@ export default class PlantProductPage extends Component {
                 <Link> Have this </Link>
                 <br/>
                 <Link> Add to wishlist </Link>
-
-
-                
             </div>
         )
     }
