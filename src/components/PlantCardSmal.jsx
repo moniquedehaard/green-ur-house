@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const PlantCardSmall = (props) => {
-    console.log(props)
     const {latin_name, pictures, _id} = props.plant
     return (
         <div className="plantCard-small">
