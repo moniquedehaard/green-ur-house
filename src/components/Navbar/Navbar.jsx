@@ -6,7 +6,7 @@ const Navbar = props => {
   return (
     <nav>
       <Link to="/" className="nav__projectName">
-        Project Name
+        Green(ur)house
       </Link>
 
       <div className="nav__authLinks">

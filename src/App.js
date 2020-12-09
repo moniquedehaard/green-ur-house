@@ -1,15 +1,22 @@
+// Packages
 import React from "react";
-import { Switch } from "react-router-dom";
-import LoadingComponent from "./components/Loading";
-import Navbar from "./components/Navbar/Navbar";
-import HomePage from "./pages/HomePage";
-import LogIn from "./pages/LogIn";
-import ProtectedPage from "./pages/ProtectedPage";
-import Signup from "./pages/Signup";
+import { Switch, Route } from "react-router-dom";
+//Routes
 import NormalRoute from "./routing-components/NormalRoute";
 import ProtectedRoute from "./routing-components/ProtectedRoute";
 import { getLoggedIn, logout } from "./services/auth";
 import * as PATHS from "./utils/paths";
+// Components
+import LoadingComponent from "./components/Loading";
+import Navbar from "./components/Navbar/Navbar";
+// Pages
+import HomePage from "./pages/HomePage";
+import LogIn from "./pages/LogIn";
+import ProtectedPage from "./pages/ProtectedPage";
+import Signup from "./pages/Signup";
+import PlantPage from "./pages/PlantPage"
+import PlantProductPage from "./pages/PlantProductPage";
+
 
 class App extends React.Component {
   state = {
@@ -83,22 +90,26 @@ class App extends React.Component {
       <div className="App">
         <Navbar handleLogout={this.handleLogout} user={this.state.user} />
         <Switch>
-          <NormalRoute exact path={PATHS.HOMEPAGE} component={HomePage} />
+          <NormalRoute exact path='/' component={HomePage} />
+          <Route exact path='/plants' component={PlantPage} />
+          <Route exact path='/plants/:id' component={PlantProductPage} />
+          
+
           <NormalRoute
             exact
-            path={PATHS.SIGNUPPAGE}
+            path='/auth/signup'
             authenticate={this.authenticate}
             component={Signup}
           />
           <NormalRoute
             exact
-            path={PATHS.LOGINPAGE}
+            path="/auth/login"
             authenticate={this.authenticate}
             component={LogIn}
           />
           <ProtectedRoute
             exact
-            path={PATHS.PROTECTEDPAGE}
+            path="/protected"
             component={ProtectedPage}
             user={this.state.user}
           />
