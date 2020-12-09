@@ -93,8 +93,6 @@ class App extends React.Component {
           <NormalRoute exact path='/' component={HomePage} />
           <Route exact path='/plants' component={PlantPage} />
           <Route exact path='/plants/:id' component={PlantProductPage} />
-          
-
           <NormalRoute
             exact
             path='/auth/signup'

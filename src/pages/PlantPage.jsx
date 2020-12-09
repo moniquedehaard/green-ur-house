@@ -4,6 +4,7 @@ import PlantCardSmall from '../components/PlantCardSmal';
 import SearchBar from "../components/Searchbar/SearchBar"
 
 import data from '../plants.json'
+import { getAllPlants } from '../services/plants';
 import './styling.css'
 
 export default class PlantPage extends Component {
@@ -13,18 +14,26 @@ export default class PlantPage extends Component {
         isLoading: true
     }
 
+
     componentDidMount = () => {
         // Make call to db!!!!
-        const plantData = data;
-        this.setState({
-            plants: plantData,
-            isLoading: false
+        // const plantData = data;
+        // this.setState({
+        //     plants: plantData,
+        //     isLoading: false
+        // })
+        getAllPlants().then(responseBack => {
+            this.setState({
+                plants: responseBack,
+                isLoading: false
+            })
         })
+
+
     }
 
     handleChange = (event) => {
         const { name, value } = event.target
-        console.log(value)
         this.setState({
             [name]:value
         })
@@ -32,6 +41,7 @@ export default class PlantPage extends Component {
         
     
     render() {
+        console.log('Plants', this.state.plants)
         if (this.state.isLoading) {
             return (
                 <h1> Loading </h1>
@@ -39,7 +49,7 @@ export default class PlantPage extends Component {
         }
 
         const filteredPlants = this.state.plants.filter(el => {
-            return el.latin_name.toLowerCase().includes(this.state.search.toLowerCase())
+            return el.latinName.toLowerCase().includes(this.state.search.toLowerCase())
         })
 
         return (
