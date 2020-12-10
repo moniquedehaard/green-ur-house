@@ -7,7 +7,10 @@ const plantService = axios.create({
 
 // Get all plants
 export function getAllPlants() {
-  return plantService.get('/').then(res => res.data);
+  return plantService.get('/').then(res => {
+    console.log('Response', res)
+    return res.data
+  });
 } 
 
 // Get plant with specific id
