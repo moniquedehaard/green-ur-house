@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import axios from 'axios'
-import { addToWishlist } from '../../services/auth';
+import { addToWishlist, removeFromWishlist } from '../../services/auth';
 
 // Do call to database
 // Select id
@@ -41,21 +41,28 @@ export default class PlantProductPage extends Component {
             })
     }
 
-    handleClickFav = (event) => {
+    handleClick = (event) => {
         // user should be logged in/ create account
         if (!this.state.user) {
             this.props.history.push("/auth/login");
         }
 
         // Clicked on remove from wishlist
-        if (this.state.hasFavPlant) {
+        if (this.state.user && this.state.hasFavPlant) {
             // Remove from db
+            console.log('hi from removing')
+            removeFromWishlist(this.state.user._id, this.props.match.params.id)
+            .then(res => {
+                this.setState({
+                    user: res.updatedUser,
+                    hasFavPlant: false
+                }) 
+            }).catch(err => console.log('ERROR FROM REMOVING WISHLIST',err))
         }
 
         // Clicked on add to wishlist
-        if (!this.state.hasFavPlant) {
+        if (this.state.user && !this.state.hasFavPlant) {
             // Add to db
-            console.log('hi')
             addToWishlist(this.state.user._id, this.props.match.params.id)
             .then(res => {
                 this.setState({
@@ -63,33 +70,15 @@ export default class PlantProductPage extends Component {
                     hasFavPlant: true
                 })
             })
-            .catch(err => console.log("there has been an error"))
+            .catch(err => console.log("there has been an error", err))
         }
-            
-
-        // authService.put(`wishlist/${this.props.match.params.id}`)
     }
 
-//      handleSubmit = (event) => {
-//     event.preventDefault();
-//     updateSingleQuestion(this.props.match.params.id, this.state.question).then(
-//       (res) => {
-//         if (!res.status) {
-//           //  deal with the error
-//           return;
-//         }
-//         console.log("res:", res);
-//         this.props.history.push("/");
-//         //  was successful
-//       }
-//     );
-//   };
-    
 
     render() {
         const { plant, user } = this.state
-        console.log('User from state', this.state.user)
-        console.log('Favwwwwww', this.state.hasFavPlant)
+        console.log("User", user)
+
         if(this.state.isLoading){
             return (
                 <div>
@@ -115,14 +104,11 @@ export default class PlantProductPage extends Component {
                 <p> <b> Air purifier: </b> {`${plant.strongAirPurifier}`} </p>
                 <p> <b> Safe for pets: </b> {`${plant.toxicForPets}`} </p>
                 
-                { user &&
-                    this.state.hasFavPlant &&
-                    (<button onClick={this.handleClickFav}> Remove from wislist </button>
-                    || <button onClick={this.handleClickFav}> Add to wislist </button> )
-                 || ( <button onClick={this.handleClickFav}> Add to wislist new user </button> )
+                { user && (this.state.hasFavPlant &&
+                    <button onClick={this.handleClick}> Remove from wislist </button>
+                    || <button onClick={this.handleClick}> Add to wislist </button> )
+                 || ( <button onClick={this.handleClick}> Add to wislist new user </button> )
                 }
-
-                {/* {user && (this.)} */}
                
                 <br/>
                 <Link to="/"> Have this plant </Link>

@@ -63,11 +63,22 @@ export function logout() {
     .catch(internalServerError);
 }
 
+// Add plant to wishtlist
 export function addToWishlist(userId, plantId) {
   console.log(userId)
   console.log(plantId)
   return authService
     .patch(`addToWishlist/${userId}`, { 'plantId': plantId })
+    .then(res => res.data)
+    .catch(err => console.log(err))
+}
+
+// Remove plant from wishlist
+export function removeFromWishlist(userId, plantId) {
+  console.log('UserId', userId)
+  console.log(plantId)
+  return authService
+    .patch(`removeFromWishlist/${userId}`, { 'plantId': plantId })
     .then(res => res.data)
     .catch(err => console.log(err))
 }
