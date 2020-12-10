@@ -9,13 +9,20 @@ import * as PATHS from "./utils/paths";
 // Components
 import LoadingComponent from "./components/Loading";
 import Navbar from "./components/Navbar/Navbar";
-// Pages
+
+/// PAGES
 import HomePage from "./pages/HomePage";
 import LogIn from "./pages/LogIn";
 import ProtectedPage from "./pages/ProtectedPage";
 import Signup from "./pages/Signup";
-import PlantPage from "./pages/PlantPage"
-import PlantProductPage from "./pages/PlantProductPage";
+// Plants
+import PlantPage from "./pages/Plants/PlantPage"
+import PlantProductPage from "./pages/Plants/PlantProductPage"
+// Dashboard
+import Dashboard from "./pages/Dashboard/Dashboard";
+import D_PlantPage from "./pages/Dashboard/D_PlantPage";
+import D_FavoritePlants from "./pages/Dashboard/D_FavoritePlant";
+import D_Account from "./pages/Dashboard/D_Account";
 
 
 class App extends React.Component {
@@ -89,10 +96,40 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar handleLogout={this.handleLogout} user={this.state.user} />
+        {/* <Header> */}
         <Switch>
           <NormalRoute exact path='/' component={HomePage} />
-          <Route exact path='/plants' component={PlantPage} />
+
+          {/* Plantpages */}
+          <Route exact path='/plants' component={ PlantPage } />
           <Route exact path='/plants/:id' component={PlantProductPage} />
+          
+          {/* Dashboard */}
+          <ProtectedRoute
+            exact
+            path='/dashboard'
+            component={Dashboard} 
+            user={this.state.user}
+          /> 
+          <ProtectedRoute
+            exact
+            path='/dashboard/your-plants'
+            component={D_PlantPage} 
+            user={this.state.user}
+          /> 
+          <ProtectedRoute
+            exact
+            path='/dashboard/favorite-plants'
+            component={D_FavoritePlants} 
+            user={this.state.user}
+          /> 
+          <ProtectedRoute
+            exact
+            path='/dashboard/account'
+            component={D_Account}
+            user={this.state.user}
+          /> 
+
           <NormalRoute
             exact
             path='/auth/signup'

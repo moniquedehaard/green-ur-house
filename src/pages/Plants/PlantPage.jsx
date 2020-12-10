@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 
-import PlantCardSmall from '../components/PlantCardSmal';
-import SearchBar from "../components/Searchbar/SearchBar"
+import PlantCardSmall from '../../components/PlantCardSmal';
+import SearchBar from "../../components/Searchbar/SearchBar"
 
-import data from '../plants.json'
-import { getAllPlants } from '../services/plants';
-import './styling.css'
+import { getAllPlants } from '../../services/plants';
+import "../styling.css"
 
 export default class PlantPage extends Component {
     state = {

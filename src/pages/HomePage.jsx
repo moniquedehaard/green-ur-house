@@ -6,6 +6,8 @@ function HomePage() {
     <div className="App">
       <h1> Green(ur)house </h1>
       <Link to="/plants"> See all plants </Link>
+      <br/>
+      <Link to="/dashboard"> See your plants and stuff </Link>
     </div>
   );
 }
