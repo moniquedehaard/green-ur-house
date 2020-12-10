@@ -62,3 +62,12 @@ export function logout() {
     .then(successStatus)
     .catch(internalServerError);
 }
+
+export function addToWishlist(userId, plantId) {
+  console.log(userId)
+  console.log(plantId)
+  return authService
+    .patch(`addToWishlist/${userId}`, { 'plantId': plantId })
+    .then(res => res.data)
+    .catch(err => console.log(err))
+}

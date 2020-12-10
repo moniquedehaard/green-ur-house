@@ -13,7 +13,6 @@ export default class PlantPage extends Component {
         isLoading: true
     }
 
-
     componentDidMount = () => {
         // Make call to db!!!!
         // const plantData = data;
@@ -40,7 +39,7 @@ export default class PlantPage extends Component {
         
     
     render() {
-        console.log('Plants', this.state.plants)
+        // console.log('Plants', this.state.plants)
         if (this.state.isLoading) {
             return (
                 <h1> Loading </h1>

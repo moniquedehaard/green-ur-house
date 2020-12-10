@@ -8,7 +8,7 @@ const plantService = axios.create({
 // Get all plants
 export function getAllPlants() {
   return plantService.get('/').then(res => {
-    console.log('Response', res)
+    // console.log('Response', res)
     return res.data
   });
 } 

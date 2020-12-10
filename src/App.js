@@ -38,6 +38,7 @@ class App extends React.Component {
         isLoading: false,
       });
     }
+    // If there is an user
     getLoggedIn(accessToken).then((res) => {
       if (!res.status) {
         console.log("RES IN CASE OF FAILURE", res);
@@ -101,8 +102,12 @@ class App extends React.Component {
           <NormalRoute exact path='/' component={HomePage} />
 
           {/* Plantpages */}
-          <Route exact path='/plants' component={ PlantPage } />
-          <Route exact path='/plants/:id' component={PlantProductPage} />
+          <Route exact path='/plants' component={PlantPage} user={this.setState.user}/>
+          <Route
+            exact
+            path='/plants/:id'
+            render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user}/>}
+          />
           
           {/* Dashboard */}
           <ProtectedRoute
