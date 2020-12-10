@@ -21,23 +21,28 @@ export default class PlantProductPage extends Component {
         plant: {},
         isLoading: true,
         user: this.props.user,
-        hasFavPlant: false
+        hasFavPlant: null
     }
 
     componentDidMount = () => {
         plantService.get(`/${this.props.match.params.id}`)
             .then(res => {
                 //console.log('Response from api', res)
-                let fav = false;
                 if (this.state.user) {
-                    fav = this.state.user.favoritePlants.find(el => el === res.data._id) ? true : false;
+                    const fav = this.state.user.favoritePlants.find(el => el === res.data._id) ? true : false;
+                    console.log('updated')
+                    this.setState({
+                        plant: res.data,
+                        isLoading: false,
+                        hasFavPlant: fav
+                    })
+                } else {
+                    this.setState({
+                        plant: res.data,
+                        isLoading: false,
+                        hasFavPlant: false
+                    })
                 }
-
-                this.setState({
-                    plant: res.data,
-                    isLoading: false,
-                    hasFavPlant: fav
-                })
             })
     }
 
@@ -78,6 +83,7 @@ export default class PlantProductPage extends Component {
     render() {
         const { plant, user } = this.state
         console.log("User", user)
+        console.log("fav", this.state.hasFavPlant)
 
         if(this.state.isLoading){
             return (
@@ -88,6 +94,7 @@ export default class PlantProductPage extends Component {
         }
 
         return (
+            
             <div className='PlantPage'>
                 <Link to='/plants'> Go back </Link>
                 <div>
@@ -104,12 +111,16 @@ export default class PlantProductPage extends Component {
                 <p> <b> Air purifier: </b> {`${plant.strongAirPurifier}`} </p>
                 <p> <b> Safe for pets: </b> {`${plant.toxicForPets}`} </p>
                 
-                { user && (this.state.hasFavPlant &&
+                {/* { user && (this.state.hasFavPlant &&
                     <button onClick={this.handleClick}> Remove from wislist </button>
                     || <button onClick={this.handleClick}> Add to wislist </button> )
                  || ( <button onClick={this.handleClick}> Add to wislist new user </button> )
-                }
-               
+                } */}
+
+                {user && ( this.state.hasFavPlant &&
+                    <button onClick={this.handleClick}> Remove from wislist </button> ||
+                    <button onClick={this.handleClick}> Add to wislist! </button> ) ||
+                    <button onClick={this.handleClick}> Add to wislist new user </button> }
                 <br/>
                 <Link to="/"> Have this plant </Link>
                  
