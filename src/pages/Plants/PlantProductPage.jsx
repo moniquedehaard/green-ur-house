@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import axios from 'axios'
-import { addToWishlist, removeFromWishlist } from '../../services/auth';
+import { addToWishlist, removeFromWishlist, addToPlantsHome } from '../../services/auth';
 
 // Do call to database
 // Select id
@@ -21,7 +21,8 @@ export default class PlantProductPage extends Component {
         plant: {},
         isLoading: true,
         user: this.props.user,
-        hasFavPlant: null
+        hasFavPlant: null,
+        hasHousePlant: null
     }
 
     componentDidMount = () => {
@@ -40,7 +41,8 @@ export default class PlantProductPage extends Component {
                     this.setState({
                         plant: res.data,
                         isLoading: false,
-                        hasFavPlant: false
+                        hasFavPlant: false,
+                        hasHousePlant: false
                     })
                 }
             })
@@ -79,6 +81,25 @@ export default class PlantProductPage extends Component {
         }
     }
 
+    handleClickHomePlant = (event) => {
+        // user should be logged in/create account
+        if (!this.state.user) {
+            this.props.history.push("/auth/login");
+        }
+
+        if (this.state.user && !this.state.hasFavPlant) {
+            const a = addToPlantsHome(this.state.user._id, this.props.match.params.id)
+            // .then(res => {
+            //     this.setState({
+            //         user: res.updatedUser,
+            //         hasHousePlant: true
+            //     })
+            // })
+            // .catch(err => console.log("there has been an error", err))
+        }
+
+    }
+
     goBack() {
         console.log('GO BACK')
         const a = this.props.match.params.id
@@ -88,7 +109,7 @@ export default class PlantProductPage extends Component {
         const { plant, user } = this.state
         // console.log("User", user)
         // console.log("fav", this.state.hasFavPlant)
-        console.log(this.props)
+        console.log('State', this.state)
 
         if(this.state.isLoading){
             return (
@@ -119,13 +140,20 @@ export default class PlantProductPage extends Component {
                 <p> <b> Air purifier: </b> {`${plant.strongAirPurifier}`} </p>
                 <p> <b> Safe for pets: </b> {`${plant.toxicForPets}`} </p>
 
+                {/* FavoriteButton */}
                 {user && ( this.state.hasFavPlant &&
                     <button onClick={this.handleClick}> Remove from wislist </button> ||
                     <button onClick={this.handleClick}> Add to wislist! </button> ) ||
                     <button onClick={this.handleClick}> Add to wislist new user </button> }
                 <br />
-                <Link to="/"> Have this plant </Link>
-                 
+
+                {/* Have this at home - button */}
+                {/* <button onClick={this.handleClickHomePlant}> Have this plant at home! </button> */}
+
+                {user && ( this.state.hasFavPlant &&
+                    <button onClick={this.handleClickHomePlant}> This plant is no longer in my home </button> ||
+                    <button onClick={this.handleClickHomePlant}> Have this plant at home! </button> ) ||
+                    <button onClick={this.handleClickHomePlant}> Have this plant at home new user! </button> }
             </div> 
         )
     }

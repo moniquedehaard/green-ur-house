@@ -86,3 +86,11 @@ export function populateUserInformation(userId) {
     .then(res => res.data)
     .catch(err => console.log(err))
 }
+
+// Remove plant from wishlist
+export function addToPlantsHome(userId, plantId) {
+  return authService
+    .patch(`addToPlantsHome/${userId}`, { 'plantId': plantId })
+    .then(res => res.data)
+    .catch(err => console.log(err))
+}
