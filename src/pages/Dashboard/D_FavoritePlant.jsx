@@ -5,14 +5,14 @@ import PlantCardSmall from "../../components/PlantCardSmal"
 
 export default class D_FavoritePlant extends Component {
     state = {
-        user: this.props.user,
         favPlants: {},
         isLoading: true
     }
 
     componentDidMount = () => {
+        const { user } = this.props
         // auth service that populates favoritePlants
-        populateUserInformation(this.state.user._id)
+        populateUserInformation(user._id)
             .then(res => {
                 console.log("Response from api", res.foundUser.favoritePlants)
                 this.setState({
@@ -24,7 +24,7 @@ export default class D_FavoritePlant extends Component {
 
 
     render() {
-        const { user, favPlants} = this.state
+        const { favPlants} = this.state
         
         if (this.state.isLoading) {
             return <h1>Loading</h1>
