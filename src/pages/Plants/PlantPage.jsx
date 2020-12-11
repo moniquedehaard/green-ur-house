@@ -8,18 +8,13 @@ import "../styling.css"
 
 export default class PlantPage extends Component {
     state = {
+        user: this.props.user,
         plants: {},
         search: '',
         isLoading: true
     }
 
     componentDidMount = () => {
-        // Make call to db!!!!
-        // const plantData = data;
-        // this.setState({
-        //     plants: plantData,
-        //     isLoading: false
-        // })
         getAllPlants().then(responseBack => {
             this.setState({
                 plants: responseBack,
@@ -39,7 +34,7 @@ export default class PlantPage extends Component {
         
     
     render() {
-        // console.log('Props', this.props)
+        console.log('USERS FROM PLANTS PAGE', this.state.user)
         // console.log('Plants', this.state.plants)
         if (this.state.isLoading) {
             return (

@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import axios from 'axios'
-import { addToWishlist, removeFromWishlist, addToPlantsHome } from '../../services/auth';
+import {
+    addToWishlist,
+    removeFromWishlist,
+    addToPlantsHome,
+    removePlantHome
+} from '../../services/auth';
 
 // Do call to database
 // Select id
@@ -20,96 +25,105 @@ export default class PlantProductPage extends Component {
     state = {
         plant: {},
         isLoading: true,
-        user: this.props.user,
-        hasFavPlant: null,
-        hasHousePlant: null
     }
 
     componentDidMount = () => {
         plantService.get(`/${this.props.match.params.id}`)
             .then(res => {
                 //console.log('Response from api', res)
-                if (this.state.user) {
-                    const fav = this.state.user.favoritePlants.find(el => el === res.data._id) ? true : false;
-                    console.log('updated')
-                    this.setState({
-                        plant: res.data,
-                        isLoading: false,
-                        hasFavPlant: fav
-                    })
-                } else {
-                    this.setState({
-                        plant: res.data,
-                        isLoading: false,
-                        hasFavPlant: false,
-                        hasHousePlant: false
-                    })
-                }
+                this.setState({
+                    plant: res.data,
+                    isLoading: false
+                }) 
             })
     }
 
     handleClick = (event) => {
+        const { user } = this.props
         // user should be logged in/ create account
-        if (!this.state.user) {
-            this.props.history.push("/auth/login");
+        if (!user) {
+           this.props.history.push("/auth/login");
         }
 
-        // Clicked on remove from wishlist
-        if (this.state.user && this.state.hasFavPlant) {
-            // Remove from db
-            console.log('hi from removing')
-            removeFromWishlist(this.state.user._id, this.props.match.params.id)
-            .then(res => {
-                this.setState({
-                    user: res.updatedUser,
-                    hasFavPlant: false
-                }) 
-            }).catch(err => console.log('ERROR FROM REMOVING WISHLIST',err))
-        }
+        if (user) {
+            // Find if favorite is in user favorite array
+            const fav = user.favoritePlants.find(el => el === this.props.match.params.id) ? true : false;
 
-        // Clicked on add to wishlist
-        if (this.state.user && !this.state.hasFavPlant) {
-            // Add to db
-            addToWishlist(this.state.user._id, this.props.match.params.id)
-            .then(res => {
-                this.setState({
-                    user: res.updatedUser,
-                    hasFavPlant: true
+            // Clicked on remove from wishlist
+            if (fav) {
+                // Remove from db
+                removeFromWishlist(user._id, this.props.match.params.id)
+                    .then(res => {
+                        this.props.handleUser(res.updatedUser)
+                }).catch(err => console.log('ERROR FROM REMOVING WISHLIST',err))
+            }
+
+            // Clicked on add to wishlist
+            if (!fav) {
+                // Add to db
+                addToWishlist(user._id, this.props.match.params.id)
+                    .then(res => {
+                        this.props.handleUser(res.updatedUser)
                 })
-            })
-            .catch(err => console.log("there has been an error", err))
+                .catch(err => console.log("there has been an error", err))
+            }
         }
     }
 
     handleClickHomePlant = (event) => {
+        const { user } = this.props
         // user should be logged in/create account
-        if (!this.state.user) {
+        if (!user) {
             this.props.history.push("/auth/login");
         }
 
-        if (this.state.user && !this.state.hasFavPlant) {
-            const a = addToPlantsHome(this.state.user._id, this.props.match.params.id)
-            // .then(res => {
-            //     this.setState({
-            //         user: res.updatedUser,
-            //         hasHousePlant: true
-            //     })
-            // })
-            // .catch(err => console.log("there has been an error", err))
+        if (user) {
+        // Find if favorite is in user home array
+        const home = user.homePlants.find(el => el === this.props.match.params.id) ? true : false;
+
+        // Users delete plants from home
+        //--> GET NOTIFICATION DO YOU REALLY WANT TO DELETE THIS PLANT
+        if (home) {
+            removePlantHome(user._id, this.props.match.params.id)
+            .then(res => {
+                this.props.handleUser(res.updatedUser)
+            }).catch(err => console.log('ERROR FROM REMOVING plant home',err))
+        }
+
+        // User adds plant to home
+        // --> THIS SHOULD GO TO THE FORM
+        if (!home) {
+            addToPlantsHome(user._id, this.props.match.params.id)
+            .then(res => {
+                this.props.handleUser(res.updatedUser)
+            })
+            .catch(err => console.log("there has been an error", err))
         }
 
     }
+            
+        }
+        
 
-    goBack() {
-        console.log('GO BACK')
-        const a = this.props.match.params.id
+    updateButtons(plantId, user) {
+        console.log('HI FROM UPDATE BUTTONS')
+        if (!user) {
+            return {  hasFavPlant: false, hasHousePlant: false }
+        }
+
+        const fav = user.favoritePlants.find(el => el === plantId) ? true : false;
+        const home = user.homePlants.find(el => el === plantId) ? true : false;
+        return {
+            hasFavPlant: fav,
+            hasHousePlant: home
+        }
+        
     }
 
     render() {
-        const { plant, user } = this.state
-        // console.log("User", user)
-        // console.log("fav", this.state.hasFavPlant)
-        console.log('State', this.state)
+        const { plant } = this.state
+        const { user } = this.props
+        console.log('USER FROM PLANTPAGE', user)
 
         if(this.state.isLoading){
             return (
@@ -119,8 +133,10 @@ export default class PlantProductPage extends Component {
             )
         }
 
+        const buttonValues = this.updateButtons(plant._id, user);
+        console.log("BUTONSVALUES", buttonValues)
+
         return (
-            
             <div className='PlantPage'>
                 {/* Button GO BACK */}
                 <button onClick={() => this.props.history.goBack()}> Go back </button>
@@ -141,16 +157,14 @@ export default class PlantProductPage extends Component {
                 <p> <b> Safe for pets: </b> {`${plant.toxicForPets}`} </p>
 
                 {/* FavoriteButton */}
-                {user && ( this.state.hasFavPlant &&
+                {user && ( buttonValues.hasFavPlant &&
                     <button onClick={this.handleClick}> Remove from wislist </button> ||
                     <button onClick={this.handleClick}> Add to wislist! </button> ) ||
                     <button onClick={this.handleClick}> Add to wislist new user </button> }
                 <br />
 
                 {/* Have this at home - button */}
-                {/* <button onClick={this.handleClickHomePlant}> Have this plant at home! </button> */}
-
-                {user && ( this.state.hasFavPlant &&
+                {user && ( buttonValues.hasHousePlant &&
                     <button onClick={this.handleClickHomePlant}> This plant is no longer in my home </button> ||
                     <button onClick={this.handleClickHomePlant}> Have this plant at home! </button> ) ||
                     <button onClick={this.handleClickHomePlant}> Have this plant at home new user! </button> }

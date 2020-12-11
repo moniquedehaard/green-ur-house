@@ -89,10 +89,17 @@ class App extends React.Component {
     });
   };
 
+  handleStateUser = (updatedUser) => {
+    this.setState({
+      user: updatedUser
+    })
+  }
+
   render() {
     if (this.state.isLoading) {
-      return <LoadingComponent />;
+      return < LoadingComponent />;
     }
+    console.log('User from app.js', this.state.user)
 
     return (
       <div className="App">
@@ -105,13 +112,12 @@ class App extends React.Component {
           <Route
             exact
             path='/plants'
-            component={PlantPage}
-            user={this.setState.user} 
+            render={RouterProps => <PlantPage {...RouterProps} user={this.state.user} />}
           />
           <Route
             exact
             path='/plants/:id'
-            render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user}/>}
+            render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user} handleUser={this.handleStateUser}/>}
           />
    
           {/* Dashboard */}

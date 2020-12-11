@@ -87,10 +87,21 @@ export function populateUserInformation(userId) {
     .catch(err => console.log(err))
 }
 
-// Remove plant from wishlist
+// Add plant to homeplants
 export function addToPlantsHome(userId, plantId) {
   return authService
     .patch(`addToPlantsHome/${userId}`, { 'plantId': plantId })
     .then(res => res.data)
+    .catch(err => console.log(err))
+}
+
+// Remove plant from homeplants
+export function removePlantHome(userId, plantId) {
+  return authService
+    .patch(`removePlantsHome/${userId}`, { 'plantId': plantId })
+    .then(res => {
+      console.log('AUTH SERVICE', res.data)
+      return res.data
+    })
     .catch(err => console.log(err))
 }
