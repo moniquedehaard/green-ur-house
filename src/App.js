@@ -102,13 +102,18 @@ class App extends React.Component {
           <NormalRoute exact path='/' component={HomePage} />
 
           {/* Plantpages */}
-          <Route exact path='/plants' component={PlantPage} user={this.setState.user}/>
+          <Route
+            exact
+            path='/plants'
+            component={PlantPage}
+            user={this.setState.user} 
+          />
           <Route
             exact
             path='/plants/:id'
             render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user}/>}
           />
-          
+   
           {/* Dashboard */}
           <ProtectedRoute
             exact

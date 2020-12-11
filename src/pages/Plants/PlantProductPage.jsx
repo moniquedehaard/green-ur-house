@@ -79,11 +79,16 @@ export default class PlantProductPage extends Component {
         }
     }
 
+    goBack() {
+        console.log('GO BACK')
+        const a = this.props.match.params.id
+    }
 
     render() {
         const { plant, user } = this.state
-        console.log("User", user)
-        console.log("fav", this.state.hasFavPlant)
+        // console.log("User", user)
+        // console.log("fav", this.state.hasFavPlant)
+        console.log(this.props)
 
         if(this.state.isLoading){
             return (
@@ -96,7 +101,10 @@ export default class PlantProductPage extends Component {
         return (
             
             <div className='PlantPage'>
-                <Link to='/plants'> Go back </Link>
+                {/* Button GO BACK */}
+                <button onClick={() => this.props.history.goBack()}> Go back </button>
+
+                {/* Card */}
                 <div>
                     <img style={{ height: '500px' }} src={plant.pictures[0]} alt={plant.latinName} />
                 </div>
@@ -110,18 +118,12 @@ export default class PlantProductPage extends Component {
                 <p> <b> Water: </b> {plant.water} </p>
                 <p> <b> Air purifier: </b> {`${plant.strongAirPurifier}`} </p>
                 <p> <b> Safe for pets: </b> {`${plant.toxicForPets}`} </p>
-                
-                {/* { user && (this.state.hasFavPlant &&
-                    <button onClick={this.handleClick}> Remove from wislist </button>
-                    || <button onClick={this.handleClick}> Add to wislist </button> )
-                 || ( <button onClick={this.handleClick}> Add to wislist new user </button> )
-                } */}
 
                 {user && ( this.state.hasFavPlant &&
                     <button onClick={this.handleClick}> Remove from wislist </button> ||
                     <button onClick={this.handleClick}> Add to wislist! </button> ) ||
                     <button onClick={this.handleClick}> Add to wislist new user </button> }
-                <br/>
+                <br />
                 <Link to="/"> Have this plant </Link>
                  
             </div> 

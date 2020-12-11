@@ -39,6 +39,7 @@ export default class PlantPage extends Component {
         
     
     render() {
+        // console.log('Props', this.props)
         // console.log('Plants', this.state.plants)
         if (this.state.isLoading) {
             return (
