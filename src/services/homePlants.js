@@ -5,6 +5,16 @@ const homePlantService = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}/home-plants`,
 });
 
+
+//Get homeplant by ID
+export function getHomePlantById(plantId) {
+  return homePlantService.get(`/plants/${plantId}`).then(res => {
+    // console.log('Found homeplant by ID', res)
+    return res.data
+  }).catch(err => console.log('Error from service', err))
+}
+
+
 //Get all homeplants by user
 // Get all plants
 export function getAllHomePlantsOfUser(userId) {
@@ -35,4 +45,19 @@ export function addNewPlant(plant) {
         errorMessage: err.response.data.errorMessage
       };
     });
+}
+
+//Get homeplant by ID
+export function updateHomePlant(plant) {
+  return homePlantService.post(`/edit/${plantId}`, plant, {
+    headers: {
+      Authorization: localStorageStorage.getItem("accessToken")
+    }
+  }).then(response => {
+    // console.log('Found homeplant by ID', res)
+    return {
+      status: true,
+      data: response.data
+    }
+  }).catch(err => console.log('Error from service', err))
 }

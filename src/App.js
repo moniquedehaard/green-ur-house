@@ -24,6 +24,7 @@ import D_PlantPage from "./pages/Dashboard/D_PlantPage";
 import D_FavoritePlants from "./pages/Dashboard/D_FavoritePlant";
 import D_Account from "./pages/Dashboard/D_Account";
 import CreateFormPlants from "./pages/Form/CreateFormPlants";
+import EditFormPlants from "./pages/Form/EditFormPlants";
 
 
 class App extends React.Component {
@@ -126,6 +127,13 @@ class App extends React.Component {
             exact
             path='/your-plants/create'
             component={CreateFormPlants}
+            user={this.state.user}
+            handleUser={this.handleStateUser}
+          />
+          <ProtectedRoute
+            exact
+            path='/your-plants/edit/:id'
+            component={EditFormPlants}
             user={this.state.user}
             handleUser={this.handleStateUser}
           />

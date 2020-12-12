@@ -34,10 +34,11 @@ export default class Dashboard_PlantPage extends Component {
                 <div className='card'>
                     {this.state.homePlants.map(el => {
                         return (
-                            <div key={el._id}>
+                            <div key={el._id} style={{height:"500px", width:"500px", border:"2px green solid", margin:"20px"}}>
                                 <img style={{height:"300px"}} src={el.species.pictures[0]} alt={el.species.latinName}/>
                                 <h2>Nickname:  {el.nickname}</h2>
                                 <h3>Species: {el.species.latinName}</h3>
+                                <Link to={`/your-plants/edit/${el._id}`}> Edit </Link>
                             </div>
                         )
                     })}

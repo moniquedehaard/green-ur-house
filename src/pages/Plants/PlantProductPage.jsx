@@ -11,7 +11,7 @@ import {
 
 // TO DO
 // - REMOVING HOME PLANTS  WHEN CLICK ON BUTTON (GET WARNING)
-// 
+// - Remove PlantService
 
 
 // Do call to database
@@ -116,7 +116,6 @@ export default class PlantProductPage extends Component {
         
 
     updateButtons(plantId, user) {
-        console.log('HI FROM UPDATE BUTTONS')
         if (!user) {
             return {  hasFavPlant: false, hasHousePlant: false }
         }
@@ -131,9 +130,10 @@ export default class PlantProductPage extends Component {
     }
 
     render() {
+        // console.log('Props', this.props)
         const { plant } = this.state
         const { user } = this.props
-        console.log('USER FROM PLANTPAGE', user)
+        // console.log('USER FROM PLANTPAGE', user)
 
         if(this.state.isLoading){
             return (
@@ -144,7 +144,7 @@ export default class PlantProductPage extends Component {
         }
 
         const buttonValues = this.updateButtons(plant._id, user);
-        console.log("BUTONSVALUES", buttonValues)
+        // console.log("BUTONSVALUES", buttonValues)
 
         return (
             <div className='PlantPage'>
