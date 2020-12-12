@@ -5,12 +5,13 @@ import { addNewPlant } from '../../services/homePlants'
 
 export default class CreateFormPlants extends Component {
     state = {
-        plant: "Monstera Delicioasa",
+        plant: this.props.location.plant,
         nickname: "",
         room: "",
-        notes: ""
+        notes: "",
     }
 
+    // Submit plant form -> go to favorite plants
     handleSubmit = (event) => {
         event.preventDefault();
         const newPlant = {
@@ -21,31 +22,68 @@ export default class CreateFormPlants extends Component {
         }
 
         addNewPlant(newPlant).then(res => {
-        //console.log('Creating new plant', res)
-        if (!res.status) {
-            return (
-                <div className='ErrorMessage'>
-                    <h1> Oops, something went wrong! Go to the homepage! </h1>
-                    <Link to='/'> Go to homepage</Link>
-                </div>    
-            )
-        }
-        this.props.history.push("/dashboard/your-plants") 
-    })
-        
+            console.log('Creating new plant', res)
+            if (!res.status) {
+                return (
+                    <div className='ErrorMessage'>
+                        <h1> Oops, something went wrong! Go to the homepage! </h1>
+                        <Link to='/'> Go to homepage</Link>
+                    </div>    
+                )
+            }
+            // Update user in app.js
+            this.props.handleUser(res.data)
+            // Push to next site 
+            this.props.history.push("/dashboard/your-plants") 
+        })  
     }
+
+
     handleChange = (event) => {
         this.setState({
           [event.target.name]: event.target.value,
         });
     };
 
+
+    // Click on button skip --> go back to plant page
+    handleClick = (event) => {
+        event.preventDefault();
+        const newPlant = {
+            plant: this.state.plant,
+            nickname: 'Unknown',
+            room: 'Unknown',
+            notes: 'Unknown'
+        }
+
+        addNewPlant(newPlant).then(res => {
+            // console.log('Creating new plant', res)
+            if (!res.status) {
+                return (
+                    <div className='ErrorMessage'>
+                        <h1> Oops, something went wrong! Go to the homepage! </h1>
+                        <Link to='/'> Go to homepage</Link>
+                    </div>    
+                )
+            }
+            // Update user in app.js
+            this.props.handleUser(res.data)
+            // Push to next site  --- previous page
+            //this.props.history.push("/dashboard/your-plants") 
+            this.props.history.goBack()
+        })     
+    }
+
     render() {
+        console.log(this.props)
         return (
             <div>
                 <h1>Create your Plant</h1>
+                <br />
+                <button onClick={() => this.props.history.goBack()}> Go back </button>
                 <br/>
-                <button> Do this later </button>
+                <button onClick={this.handleClick} > Do this later </button>
+
                 <br />
                 <br/>
 

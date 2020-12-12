@@ -127,6 +127,7 @@ class App extends React.Component {
             path='/your-plants/create'
             component={CreateFormPlants}
             user={this.state.user}
+            handleUser={this.handleStateUser}
           />
         
    

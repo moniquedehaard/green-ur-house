@@ -9,9 +9,16 @@ import {
     removePlantHome
 } from '../../services/auth';
 
+// TO DO
+// - REMOVING HOME PLANTS  WHEN CLICK ON BUTTON (GET WARNING)
+// 
+
+
 // Do call to database
 // Select id
 // Show right data
+
+
 const plantService = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}/plants`,
 });
@@ -93,11 +100,14 @@ export default class PlantProductPage extends Component {
         // User adds plant to home
         // --> THIS SHOULD GO TO THE FORM
         if (!home) {
-            addToPlantsHome(user._id, this.props.match.params.id)
-            .then(res => {
-                this.props.handleUser(res.updatedUser)
-            })
-            .catch(err => console.log("there has been an error", err))
+            //this.props.history.push("/your-plants/create") 
+            this.props.history.push({ pathname: '/your-plants/create', plant:this.state.plant.latinName});
+            
+            // addToPlantsHome(user._id, this.props.match.params.id)
+            // .then(res => {
+            //     this.props.handleUser(res.updatedUser)
+            // })
+            // .catch(err => console.log("there has been an error", err))
         }
 
     }

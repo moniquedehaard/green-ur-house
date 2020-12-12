@@ -12,7 +12,7 @@ export default class Dashboard_PlantPage extends Component {
         const { user } = this.props
         getAllHomePlantsOfUser(user._id)
             .then(res => {
-                console.log("Response from api", res.plantsAtHome)
+                // console.log("Response from api", res.plantsAtHome)
                 this.setState({
                     homePlants: res.plantsAtHome,
                     isLoading:  false
@@ -21,7 +21,7 @@ export default class Dashboard_PlantPage extends Component {
     }
 
     render() {
-        console.log(this.state.homePlants)
+        // console.log(this.state.homePlants)
         if (this.state.isLoading) {
             return <h1>Loading</h1>
         }
