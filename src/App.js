@@ -9,6 +9,7 @@ import * as PATHS from "./utils/paths";
 // Components
 import LoadingComponent from "./components/Loading";
 import Navbar from "./components/Navbar/Navbar";
+import Header  from "./components/Header/Header"
 
 /// PAGES
 import HomePage from "./pages/HomePage";
@@ -107,9 +108,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <Navbar handleLogout={this.handleLogout} user={this.state.user} />
+        {/* <Header user={this.state.user}/> */}
         {/* <Header> */}
         <Switch>
-          <NormalRoute exact path='/' component={HomePage} />
+          <NormalRoute exact path='/' component={HomePage} user={this.state.user} />
 
           {/* Plantpages */}
           <Route

@@ -8,3 +8,38 @@
   padding: 10px;
   margin: 10px 0 10px;
 }
+
+/* HomePage */
+.homepage {
+  display: flex;
+  width: 100vw;
+  background-color: red;
+  height: 100vh;
+}
+.homepage_left {
+  width: 700px;
+  height: 100vh;
+  color: rgb(80, 103, 104);
+  background-color: white;
+}
+
+.homepage_textBlock {
+  /* background-color: pink; */
+  margin: 150px 0 0 30px;
+}
+
+.homepage_textBlock h1 {
+  font-size: 45px;
+}
+
+.homepage_right {
+  background: red;
+  max-width: 900px;
+  height: 100vh;
+  float: right;
+}
+
+.homepage_img {
+  position: relative;
+  width: 100%;
+}

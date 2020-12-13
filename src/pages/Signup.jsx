@@ -6,6 +6,7 @@ export default class Signup extends Component {
   state = {
     username: "",
     password: "",
+    uploadedImage: null,
     error: null,
   };
 
@@ -21,7 +22,9 @@ export default class Signup extends Component {
     const credentials = {
       username: this.state.username,
       password: this.state.password,
+      image: this.state.uploadedImage
     };
+
     signup(credentials).then((res) => {
       // successful signup
       console.log(res);
@@ -61,6 +64,17 @@ export default class Signup extends Component {
             required
             minLength="8"
           />
+
+          <label htmlFor="uploadedImage">Your picture</label>
+          <input
+            id="uploadedImage"
+            type="file"
+            name="uploadedImage"
+            value={this.state.uploadedImage}
+            onChange={this.handleInputChange}
+          />
+
+          
 
           {this.state.error && (
             <div className="error-block">
