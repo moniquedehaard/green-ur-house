@@ -32,6 +32,7 @@ export default class PlantProductPage extends Component {
     state = {
         plant: {},
         isLoading: true,
+        deleteMessage: false
     }
 
     componentDidMount = () => {
@@ -91,10 +92,11 @@ export default class PlantProductPage extends Component {
         // Users delete plants from home
         //--> GET NOTIFICATION DO YOU REALLY WANT TO DELETE THIS PLANT
         if (home) {
-            removePlantHome(user._id, this.props.match.params.id)
-            .then(res => {
-                this.props.handleUser(res.updatedUser)
-            }).catch(err => console.log('ERROR FROM REMOVING plant home',err))
+            this.props.history.push("/your-plants/remove")
+            //removePlantHome(user._id, this.props.match.params.id)
+            //.then(res => {
+            //    this.props.handleUser(res.updatedUser)
+            //}).catch(err => console.log('ERROR FROM REMOVING plant home',err))
         }
 
         // User adds plant to home
@@ -102,17 +104,16 @@ export default class PlantProductPage extends Component {
         if (!home) {
             //this.props.history.push("/your-plants/create") 
             this.props.history.push({ pathname: '/your-plants/create', plant:this.state.plant.latinName});
-            
-            // addToPlantsHome(user._id, this.props.match.params.id)
-            // .then(res => {
-            //     this.props.handleUser(res.updatedUser)
-            // })
-            // .catch(err => console.log("there has been an error", err))
         }
 
-    }
-            
         }
+    }
+
+    handleDeletePlant = (event) => {
+        this.setState({
+            deleteMessage: true
+        })
+    }
         
 
     updateButtons(plantId, user) {
@@ -175,9 +176,14 @@ export default class PlantProductPage extends Component {
 
                 {/* Have this at home - button */}
                 {user && ( buttonValues.hasHousePlant &&
-                    <button onClick={this.handleClickHomePlant}> This plant is no longer in my home </button> ||
+                    <button onClick={this.handleDeletePlant}> This plant is no longer in my home </button> ||
                     <button onClick={this.handleClickHomePlant}> Have this plant at home! </button> ) ||
-                    <button onClick={this.handleClickHomePlant}> Have this plant at home new user! </button> }
+                    <button onClick={this.handleClickHomePlant}> Have this plant at home new user! </button>}
+                {this.state.deleteMessage &&
+                    <div className="deletePlant">
+                        <p>Are you sure you want to delete this plant? </p>
+                        <Link to='/dashboard/your-plants'> Yes </Link>
+                    </div>}
             </div> 
         )
     }

@@ -47,6 +47,8 @@ export default class Dashboard_PlantPage extends Component {
                     })}
 
                 </div>
+
+                <Link to='/your-plants/create'> Add a new plant to your home</Link>
             </div>
         )
     }

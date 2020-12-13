@@ -22,7 +22,7 @@ export default class CreateFormPlants extends Component {
         }
 
         addNewPlant(newPlant).then(res => {
-            console.log('Creating new plant', res)
+            // console.log('Creating new plant', res)
             if (!res.status) {
                 return (
                     <div className='ErrorMessage'>
@@ -75,7 +75,7 @@ export default class CreateFormPlants extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         return (
             <div>
                 <h1>Create your Plant</h1>
