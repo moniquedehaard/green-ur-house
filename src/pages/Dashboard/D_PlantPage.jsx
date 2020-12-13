@@ -39,6 +39,9 @@ export default class Dashboard_PlantPage extends Component {
                                 <h2>Nickname:  {el.nickname}</h2>
                                 <h3>Species: {el.species.latinName}</h3>
                                 <Link to={`/your-plants/edit/${el._id}`}> Edit </Link>
+                                <br />
+                                <br/>
+                                <Link to={`/your-plants/delete/${el._id}`}> Delete </Link>
                             </div>
                         )
                     })}

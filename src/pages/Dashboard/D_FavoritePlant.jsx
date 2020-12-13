@@ -41,6 +41,8 @@ export default class D_FavoritePlant extends Component {
                         return <PlantCardSmall key={el._id} plant={el} />
                     })}
                 </div>
+
+                <Link to='/plants'> Add new favorite plants </Link>
             </div>
         )
     }

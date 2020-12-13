@@ -48,16 +48,44 @@ export function addNewPlant(plant) {
 }
 
 //Get homeplant by ID
-export function updateHomePlant(plant) {
+export function updateHomePlant(plantId, plant) {
   return homePlantService.post(`/edit/${plantId}`, plant, {
     headers: {
-      Authorization: localStorageStorage.getItem("accessToken")
+      Authorization: localStorage.getItem("accessToken")
     }
   }).then(response => {
-    // console.log('Found homeplant by ID', res)
-    return {
-      status: true,
-      data: response.data
+      // console.log(response)
+      return {
+        status: true,
+        data: response.data
+      };
+    })
+    .catch(err => {
+      //console.log("Error response", err.response)
+      return {
+        status: false,
+        errorMessage: err.response.data.errorMessage
+      };
+    });
+}
+
+//Delete homeplant by ID
+export function deleteHomePlant(plantId, plant) {
+  return homePlantService.post(`/delete/${plantId}`, plant, {
+    headers: {
+      Authorization: localStorage.getItem("accessToken")
     }
-  }).catch(err => console.log('Error from service', err))
+  }).then(response => {
+       return {
+        status: true,
+        data: response.data
+      };
+    })
+    .catch(err => {
+      console.log("Error response", err.response)
+      return {
+        status: false,
+        errorMessage: err.response.data.errorMessage
+      };
+    });
 }

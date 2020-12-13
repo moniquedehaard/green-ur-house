@@ -33,7 +33,8 @@ export default class EditFormPlants extends Component {
             notes: this.state.notes
         }
 
-        updateHomePlant(plant).then(res => {
+        updateHomePlant(this.props.computedMatch.params.id, plant)
+            .then(res => {
             console.log('Updating new plant', res)
             if (!res.status) {
                 return (
@@ -43,7 +44,6 @@ export default class EditFormPlants extends Component {
                     </div>    
                 )
             }
-
             // Update user in app.js
             this.props.handleUser(res.data)
             // Push to next site 
