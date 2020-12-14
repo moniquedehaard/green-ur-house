@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import Header from '../../components/Header/Header';
 
-import PlantCardSmall from '../../components/PlantCardSmal';
+import PlantCardSmall from "../../components/PlantCardSmall/PlantCardSmall"
 import SearchBar from "../../components/Searchbar/SearchBar"
 
 import { getAllPlants } from '../../services/plants';
@@ -38,7 +39,11 @@ export default class PlantPage extends Component {
         // console.log('Plants', this.state.plants)
         if (this.state.isLoading) {
             return (
-                <h1> Loading </h1>
+                <div className="loading_block">
+                    <Header user={this.props.user} />
+                    <h1> Loading... </h1>
+                </div>
+                
             )
         }
 
@@ -47,18 +52,22 @@ export default class PlantPage extends Component {
         })
 
         return (
-            <div className= 'plantPage'>
-                <h1>This is the plant page with all plants</h1>
+            <div className='plantPage'>
+                <Header user={this.props.user} />
 
-                {/* Search bar needed */}
-                {/* const { search, handleChange } = props */}
-                <SearchBar search={this.state.search} handleChange={this.handleChange}/>
+                <div className="plantpage_content_block">
+                    <h1> all houseplants </h1>
 
-                {/*  Plant block with all plants */}
-                <div className="plantBlock">
-                    {filteredPlants.map(el => {
-                        return <PlantCardSmall key={el._id} plant={el} />
-                    })}
+                    {/* Search bar needed */}
+                    <SearchBar search={this.state.search} handleChange={this.handleChange}/>
+
+                    {/*  Plant block with all plants */}
+                    <div className="plantBlock">
+                        {filteredPlants.map(el => {
+                            return <PlantCardSmall key={el._id} plant={el} />
+                        })}
+                    </div>
+
                 </div>
 
             </div>

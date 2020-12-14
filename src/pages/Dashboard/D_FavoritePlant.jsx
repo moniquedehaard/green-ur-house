@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { populateUserInformation } from '../../services/auth'
-import PlantCardSmall from "../../components/PlantCardSmal"
+import PlantCardSmall from "../../components/PlantCardSmall/PlantCardSmall"
+import Header from '../../components/Header/Header';
+import "../styling.css"
 
 export default class D_FavoritePlant extends Component {
     state = {
@@ -25,24 +27,37 @@ export default class D_FavoritePlant extends Component {
 
     render() {
         const { favPlants} = this.state
-        
+
         if (this.state.isLoading) {
-            return <h1>Loading</h1>
-        }
-        return (
-            <div>
-                <h1> Your favorite plants</h1>   
-                <Link to='/dashboard'> Go Back </Link>
-
-
-                {/* PlantCard */}
-                <div className="plantBlock">
-                    {favPlants.map(el => {
-                        return <PlantCardSmall key={el._id} plant={el} />
-                    })}
+            return (
+                <div className="loading_block">
+                    <Header user={this.props.user} />
+                    <h1> Loading... </h1>
                 </div>
+                
+            )
+        }
 
-                <Link to='/plants'> Add new favorite plants </Link>
+        return (
+            <div className="dashboard">
+                <Header user={this.props.user} />
+                
+                <div className="dashboard_content">
+                    <h1> your wishlist </h1>
+                    <br/>
+                    <button onClick={() => this.props.history.push('/dashboard')} className="btn_gb"> go back </button>
+                    
+
+                    {/* PlantCard */}
+                    <div className="plantBlock">
+                        {favPlants.map(el => {
+                            return <PlantCardSmall key={el._id} plant={el} />
+                        })}
+                    </div>
+
+                    <Link to='/plants'> Add new favorite plants </Link>
+                </div> 
+
             </div>
         )
     }

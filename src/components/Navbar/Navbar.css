@@ -5,8 +5,19 @@
   color: rgb(26, 43, 35);
   padding-left: 20px;
 
+  /* position: fixed; */
+  /* top: 0; */
+
   display: flex;
   flex-direction: column;
+}
+
+.navbar__no_user {
+  background-color: rgb(180, 197, 197);
+  height: 100vh;
+  width: 80px;
+  color: rgb(26, 43, 35);
+  padding-left: 20px;
 }
 
 .navbar ul {
@@ -17,6 +28,7 @@
 .main-nav__icon {
   font-size: 20px;
   color: rgb(50, 78, 66);
+  width: 20px;
 }
 
 .menu_top {
@@ -39,6 +51,25 @@
 
 .main-nav__menu {
   margin-left: 10px;
+  color: rgb(17, 33, 29);
+  font-size: 16px;
+}
+
+.logout-btn {
+  border: 0;
+  padding: 0;
+  display: flex;
+  background-color: Transparent;
+
+  cursor: pointer;
+
+  position: absolute;
+  bottom: 100px;
+}
+
+.nav_logo {
+  position: absolute;
+  bottom: 60px;
 }
 
 /* nav {

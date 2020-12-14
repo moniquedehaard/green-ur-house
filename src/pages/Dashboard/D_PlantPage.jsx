@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { getAllHomePlantsOfUser } from "../../services/homePlants" 
+import Header from '../../components/Header/Header';
+
+import "../styling.css"
 
 export default class Dashboard_PlantPage extends Component {
     state = {
@@ -23,15 +26,26 @@ export default class Dashboard_PlantPage extends Component {
     render() {
         // console.log(this.state.homePlants)
         if (this.state.isLoading) {
-            return <h1>Loading</h1>
+            return (
+                <div className="loading_block">
+                    <Header user={this.props.user} />
+                    <h1> Loading... </h1>
+                </div>
+                
+            )
         }
 
         return (
-            <div>
-                <h1> Here you can find your plants</h1>
-                <Link to='/dashboard'> Go Back </Link>
+            <div className="dashboard">
+                <Header user={this.props.user} />
 
-                <div className='card'>
+                <div className="dashboard_content">
+                    <h1> your plants </h1>
+                    <br/>
+                    <button onClick={() => this.props.history.push('/dashboard')} className="btn_gb"> go back </button>
+                    
+
+                    <div className='card'>
                     {this.state.homePlants.map(el => {
                         return (
                             <div key={el._id} style={{height:"500px", width:"500px", border:"2px green solid", margin:"20px"}}>
@@ -45,10 +59,9 @@ export default class Dashboard_PlantPage extends Component {
                             </div>
                         )
                     })}
-
-                </div>
-
-                <Link to='/your-plants/create'> Add a new plant to your home</Link>
+                    </div>
+                     <Link to='/your-plants/create'> Add a new plant to your home</Link>
+                </div>      
             </div>
         )
     }

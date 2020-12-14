@@ -1,13 +1,13 @@
-form.auth__form {
+/* form.auth__form {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   flex-direction: column;
-  align-content: center;
+  align-content: flex-start;
   max-width: 300px;
   margin: 0 auto;
-}
-
+} */
+/* 
 button.button__submit {
   max-width: 100px;
   margin: 1em auto;
-}
+} */

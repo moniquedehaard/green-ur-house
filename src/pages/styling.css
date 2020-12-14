@@ -1,19 +1,8 @@
-/* Plant card /plants */
-.plantCard-small {
-  height: 400px;
-  width: 400px;
-  border: 2px solid rgb(50, 78, 66);
-  border-radius: 20px;
-  background-color: rgb(180, 197, 197);
-  padding: 10px;
-  margin: 10px 0 10px;
-}
-
 /* HomePage */
 .homepage {
   display: flex;
   width: 100vw;
-  background-color: red;
+  background-color: rgb(80, 103, 104);
   height: 100vh;
 }
 .homepage_left {
@@ -33,13 +22,150 @@
 }
 
 .homepage_right {
-  background: red;
+  background: rgb(80, 103, 104);
   max-width: 900px;
   height: 100vh;
   float: right;
 }
 
-.homepage_img {
-  position: relative;
-  width: 100%;
+/* .homepage_img {
+  /* position: relative;
+  width: 100%; */
+/* background-image: url("../../public/plants.jpg"); */
+
+/* LOADING block */
+.loading_block {
+  width: auto;
+}
+
+/* Plantpage with all plants */
+.plantPage {
+  width: 100vw;
+}
+
+.plantpage_content_block {
+  padding-left: 30px;
+}
+
+.plantPage h1 {
+  font-size: 40px;
+  color: rgb(80, 103, 104);
+}
+
+/* PlantProductPage */
+.plantProductPage {
+  width: 100vw;
+}
+
+.ppp_title {
+  padding-left: 40px;
+  margin-bottom: 30px;
+}
+
+.ppp_title h1 {
+  font-size: 40px;
+  color: rgb(80, 103, 104);
+}
+
+.ppp_plantcard {
+  height: 500px;
+  padding-left: 40px;
+  width: 80%;
+  /* background-color: pink; */
+
+  display: flex;
+  align-items: flex-start;
+}
+
+.ppp_plantcard_img {
+  height: 500px;
+}
+
+.ppp_plantcard_img img {
+  height: 100%;
+}
+
+.ppp_information {
+  /* margin-left: 30px; */
+  margin: 30px 0 30px 30px;
+  height: 90%;
+  width: 600px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ppp_information_block {
+  width: 500px;
+}
+
+.ppp_information_block h3 {
+  color: rgb(80, 103, 104);
+}
+
+.ppp_names h1 {
+  font-size: 40px;
+  color: rgb(80, 103, 104);
+}
+.ppp_names h4 {
+  color: rgb(45, 56, 57);
+  font-weight: 200;
+}
+
+.main-nav__icon_ppp {
+  font-size: 25px;
+  color: rgb(80, 103, 104);
+  width: 30px;
+  margin-right: 10px;
+}
+
+.main-nav__icon_ppp i {
+  text-align: center;
+}
+
+.ppp_property {
+  display: flex;
+  margin: 3px 0;
+}
+
+.btn_ppp {
+  color: white;
+  background-color: rgb(45, 76, 76);
+  padding: 5px 20px;
+  font-size: 15px;
+  border-style: none;
+  border-radius: 10px;
+}
+
+/* GO BACK BUTTON */
+.btn_gb {
+  color: white;
+  background-color: rgb(45, 76, 76);
+  font-size: 14px;
+  padding: 8px 30px;
+  border-style: none;
+  border-radius: 20px;
+}
+
+/* DASHBOARD */
+.dashboard {
+  width: 100vw;
+}
+.dashboard_content {
+  padding-left: 40px;
+}
+
+.dashboard h1 {
+  font-size: 40px;
+  color: rgb(80, 103, 104);
+}
+
+/* FORMS */
+.block h1 {
+  font-size: 40px;
+  color: rgb(80, 103, 104);
+}
+.form {
+  padding-left: 40px;
 }

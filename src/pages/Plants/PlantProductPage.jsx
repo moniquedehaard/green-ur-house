@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 
+import Header from '../../components/Header/Header';
+
 import axios from 'axios'
 import {
     addToWishlist,
@@ -8,6 +10,8 @@ import {
     addToPlantsHome,
     removePlantHome
 } from '../../services/auth';
+
+import "../styling.css"
 
 // TO DO
 // - REMOVING HOME PLANTS  WHEN CLICK ON BUTTON (GET WARNING)
@@ -136,11 +140,13 @@ export default class PlantProductPage extends Component {
         const { user } = this.props
         // console.log('USER FROM PLANTPAGE', user)
 
-        if(this.state.isLoading){
+        if (this.state.isLoading) {
             return (
-                <div>
-                    <h2> Loading ...</h2>
+                <div className="loading_block">
+                    <Header user={this.props.user} />
+                    <h1> Loading... </h1>
                 </div>
+                
             )
         }
 
@@ -148,42 +154,100 @@ export default class PlantProductPage extends Component {
         // console.log("BUTONSVALUES", buttonValues)
 
         return (
-            <div className='PlantPage'>
-                {/* Button GO BACK */}
-                <button onClick={() => this.props.history.goBack()}> Go back </button>
-
-                {/* Card */}
-                <div>
-                    <img style={{ height: '500px' }} src={plant.pictures[0]} alt={plant.latinName} />
+            <div className='plantProductPage'>
+                <Header user={this.props.user} />
+                
+                <div className="ppp_title">
+                    <h1> {plant.latinName.toLowerCase()} </h1>
                 </div>
+                
+                <div className="ppp_plantcard">
+                    
+                    {/* Card */}
+                    <div className="ppp_plantcard_img">
+                        <img src={plant.pictures[0]} alt={plant.latinName} />
+                    </div>
 
-                <h1>{plant.latinName}</h1>
-                <h3>About this plant:</h3>
-                <p> {plant.about}</p>
-                <p> <b> Average height: </b> {plant.averageHeight} </p>
-                <p> <b> Water: </b> {plant.water} </p>
-                <p> <b> Light: </b> {plant.light} </p>
-                <p> <b> Water: </b> {plant.water} </p>
-                <p> <b> Air purifier: </b> {`${plant.strongAirPurifier}`} </p>
-                <p> <b> Safe for pets: </b> {`${plant.toxicForPets}`} </p>
+                    <div className="ppp_information">
+                        <div className="ppp_names">
+                            <h1>{plant.latinName}</h1>
+                            <h4>or</h4>
+                            <h1>{plant.name}</h1>
+                        </div>
+                        
+                        <div className="ppp_about">
+                            <h3>About this plant</h3>
+                            <p> {plant.about}</p>
+                        </div>   
+                        
+                        <div className="ppp_properties_block">
+                                
+                                <div className="ppp_property">
+                                    <div className="main-nav__icon_ppp">
+                                        <i className="fas fa-ruler-vertical"></i>
+                                    </div>
+                                    <p> {plant.averageHeight} </p>
+                                </div>
+                            
+                                <div className="ppp_property">
+                                    <div className="main-nav__icon_ppp">
+                                        <i className="fas fa-tint"></i>
+                                    </div>
+                                    <p>{plant.water}</p>
+                                </div>
 
-                {/* FavoriteButton */}
-                {user && ( buttonValues.hasFavPlant &&
-                    <button onClick={this.handleClick}> Remove from wislist </button> ||
-                    <button onClick={this.handleClick}> Add to wislist! </button> ) ||
-                    <button onClick={this.handleClick}> Add to wislist new user </button> }
-                <br />
+                                <div className="ppp_property">
+                                    <div className="main-nav__icon_ppp">
+                                        <i className="fas fa-sun"></i>
+                                    </div>
+                                    <p>{plant.light}</p>
+                                </div>
 
-                {/* Have this at home - button */}
-                {user && ( buttonValues.hasHousePlant &&
-                    <button onClick={this.handleDeletePlant}> This plant is no longer in my home </button> ||
-                    <button onClick={this.handleClickHomePlant}> Have this plant at home! </button> ) ||
-                    <button onClick={this.handleClickHomePlant}> Have this plant at home new user! </button>}
-                {this.state.deleteMessage &&
-                    <div className="deletePlant">
-                        <p>Are you sure you want to delete this plant? </p>
-                        <Link to='/dashboard/your-plants'> Yes </Link>
-                    </div>}
+                                <div className="ppp_property">
+                                    <div className="main-nav__icon_ppp">
+                                        <i className="fas fa-wind"></i>
+                                    </div>
+                                    <p>{`${plant.strongAirPurifier}`}</p>
+                                </div>
+
+                                <div className="ppp_property">
+                                    <div className="main-nav__icon_ppp">
+                                        <i className="fas fa-cat"></i>
+                                    </div>
+                                    <p>{`${plant.toxicForPets}`}</p>
+                                </div>
+
+                            </div>
+                            
+                        <div className="ppp_buttons">
+                            {/* Favorite plant */}
+                            {user && ( buttonValues.hasFavPlant &&
+                            <button onClick={this.handleClick} className="btn_ppp"> Remove from wislist </button> ||
+                            <button onClick={this.handleClick} className="btn_ppp"> Add to wislist! </button> ) ||
+                            <button onClick={this.handleClick} className="btn_ppp"> Add to wislist new user </button>}
+                            
+
+                            {/* Have this  plant at home */}
+                            {user && ( buttonValues.hasHousePlant &&
+                            <button onClick={this.handleDeletePlant} className="btn_ppp"> This plant is no longer in my home </button> ||
+                            <button onClick={this.handleClickHomePlant} className="btn_ppp"> Have this plant at home! </button> ) ||
+                            <button onClick={this.handleClickHomePlant} className="btn_ppp"> Have this plant at home new user! </button>}
+                            
+                            {/* Error message - deleting */}
+                            {this.state.deleteMessage &&
+                            <div className="deletePlant">
+                                <p>Are you sure you want to delete this plant? </p>
+                                <Link to='/dashboard/your-plants'> Yes </Link>
+                            </div>}
+                        </div>
+                        
+                    </div>
+
+                    {/* Button GO BACK */}
+                    <button onClick={() => this.props.history.goBack()} className="btn_gb"> go back </button>
+                    
+                    </div>
+                    
             </div> 
         )
     }
