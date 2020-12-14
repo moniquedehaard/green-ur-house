@@ -27,22 +27,25 @@ const plantService = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}/plants`,
 });
 
-const authService = axios.create({
-  baseURL: `${process.env.REACT_APP_SERVER_URL}/auth`,
-});
-
-
 export default class PlantProductPage extends Component {
     state = {
         plant: {},
         isLoading: true,
-        deleteMessage: false
+        deleteMessage: false,
+        user: null
     }
 
     componentDidMount = () => {
         plantService.get(`/${this.props.match.params.id}`)
             .then(res => {
                 //console.log('Response from api', res)
+
+        //         if (this.props.user) {
+        //         authService.get(``)  // get populated user
+        //         // populated user back
+
+        //  }.then
+                
                 this.setState({
                     plant: res.data,
                     isLoading: false

@@ -35,7 +35,12 @@
 
 /* LOADING block */
 .loading_block {
-  width: auto;
+  width: 100vw;
+}
+
+.loading_block h1 {
+  color: rgb(80, 103, 104);
+  padding-left: 40px;
 }
 
 /* Plantpage with all plants */
@@ -168,4 +173,50 @@
 }
 .form {
   padding-left: 40px;
+  width: 90%;
+}
+
+/* PLANT FORMS */
+.title_block {
+  display: flex;
+  justify-content: space-between;
+}
+
+select {
+  width: 400px;
+}
+
+option {
+  width: 400px;
+}
+
+.plantForm-input {
+  width: 400px;
+}
+
+.formPlant_buttons {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form h3 {
+  font-weight: 300;
+}
+
+.form p {
+  color: black;
+  margin-top: 3px;
+}
+
+.deletePlant {
+  margin-top: 10px;
+  width: 180px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.warning h3 {
+  font-weight: 700;
 }
