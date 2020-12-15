@@ -8,20 +8,14 @@ import {
     addToWishlist,
     removeFromWishlist,
     addToPlantsHome,
-    removePlantHome
+    removePlantHome,
+    populateUserInformation
 } from '../../services/auth';
 
 import "../styling.css"
 
 // TO DO
-// - REMOVING HOME PLANTS  WHEN CLICK ON BUTTON (GET WARNING)
 // - Remove PlantService
-
-
-// Do call to database
-// Select id
-// Show right data
-
 
 const plantService = axios.create({
   baseURL: `${process.env.REACT_APP_SERVER_URL}/plants`,
@@ -31,33 +25,40 @@ export default class PlantProductPage extends Component {
     state = {
         plant: {},
         isLoading: true,
-        deleteMessage: false,
         user: null
     }
 
     componentDidMount = () => {
-        plantService.get(`/${this.props.match.params.id}`)
-            .then(res => {
-                //console.log('Response from api', res)
+        // Get plant of specific page
+        plantService.get(`/${this.props.match.params.id}`).then(res => {
+            // Check if user is logged in
+            if (this.props.user) {
+                console.log('hi')
+                populateUserInformation(this.props.user._id).then(foundUser => {
+                    // console.log('User', foundUser)
+                    this.setState({
+                        plant: res.data,
+                        isLoading: false,
+                        user: foundUser.foundUser
+                    })
+                })
+            }
 
-        //         if (this.props.user) {
-        //         authService.get(``)  // get populated user
-        //         // populated user back
-
-        //  }.then
-                
-                this.setState({
-                    plant: res.data,
-                    isLoading: false
-                }) 
+            //  no user
+            this.setState({
+                plant: res.data,
+                isLoading: false
             })
+        })
     }
 
+    // Click on wishlist
     handleClick = (event) => {
         const { user } = this.props
-        // user should be logged in/ create account
+
+        // user should be logged in/ create account -> REDIRECT
         if (!user) {
-           this.props.history.push("/auth/login");
+            this.props.history.push("/auth/login");
         }
 
         if (user) {
@@ -70,7 +71,7 @@ export default class PlantProductPage extends Component {
                 removeFromWishlist(user._id, this.props.match.params.id)
                     .then(res => {
                         this.props.handleUser(res.updatedUser)
-                }).catch(err => console.log('ERROR FROM REMOVING WISHLIST',err))
+                    }).catch(err => console.log('ERROR FROM REMOVING WISHLIST', err))
             }
 
             // Clicked on add to wishlist
@@ -79,69 +80,69 @@ export default class PlantProductPage extends Component {
                 addToWishlist(user._id, this.props.match.params.id)
                     .then(res => {
                         this.props.handleUser(res.updatedUser)
-                })
-                .catch(err => console.log("there has been an error", err))
+                    })
+                    .catch(err => console.log("there has been an error", err))
             }
         }
     }
 
+
     handleClickHomePlant = (event) => {
-        const { user } = this.props
+        const { user } = this.state
         // user should be logged in/create account
         if (!user) {
             this.props.history.push("/auth/login");
         }
 
         if (user) {
-        // Find if favorite is in user home array
-        const home = user.homePlants.find(el => el === this.props.match.params.id) ? true : false;
+            // Find if favorite is in user home array
+            const home = user.homePlants.find(el => el.species === this.props.match.params.id) ? true : false;
+            
+            // Users delete plants from home
+            if (home) {
+                //--> GET NOTIFICATION DO YOU REALLY WANT TO DELETE THIS PLANT
+                const numberOfPlants = user.homePlants.filter(el => el.species === this.props.match.params.id)
+                // console.log(numberOfPlants)
+                if (numberOfPlants.length > 1) {
+                   this.props.history.push("/dashboard/your-plants") 
+                } else {
+                    this.props.history.push(`/your-plants/delete/${numberOfPlants[0]._id}`)
+                }
+            }
 
-        // Users delete plants from home
-        //--> GET NOTIFICATION DO YOU REALLY WANT TO DELETE THIS PLANT
-        if (home) {
-            this.props.history.push("/your-plants/remove")
-            //removePlantHome(user._id, this.props.match.params.id)
-            //.then(res => {
-            //    this.props.handleUser(res.updatedUser)
-            //}).catch(err => console.log('ERROR FROM REMOVING plant home',err))
+            // User adds plant to home
+            
+            if (!home) {
+                // --> THIS SHOULD GO TO THE FORM
+                this.props.history.push({ pathname: '/your-plants/create', plant: this.state.plant.latinName });
+            }
+
         }
-
-        // User adds plant to home
-        // --> THIS SHOULD GO TO THE FORM
-        if (!home) {
-            //this.props.history.push("/your-plants/create") 
-            this.props.history.push({ pathname: '/your-plants/create', plant:this.state.plant.latinName});
-        }
-
-        }
-    }
-
-    handleDeletePlant = (event) => {
-        this.setState({
-            deleteMessage: true
-        })
     }
         
 
-    updateButtons(plantId, user) {
-        if (!user) {
+    updateButtons(plantId) {
+        if (!this.props.user) {
             return {  hasFavPlant: false, hasHousePlant: false }
         }
 
-        const fav = user.favoritePlants.find(el => el === plantId) ? true : false;
-        const home = user.homePlants.find(el => el === plantId) ? true : false;
+        if (!this.state.user) {
+            return { hasFavPlant: false, hasHousePlant: false}
+        }
+    
+        const fav = this.props.user.favoritePlants.find(el => el === plantId) ? true : false;
+        const home = this.state.user.homePlants.find(el => el.species === plantId) ? true : false;
         return {
             hasFavPlant: fav,
             hasHousePlant: home
         }
-        
     }
 
     render() {
-        // console.log('Props', this.props)
         const { plant } = this.state
         const { user } = this.props
-        // console.log('USER FROM PLANTPAGE', user)
+        // console.log('USER FROM PROPS', user)
+        // console.log('USER FROM STATE', this.state.user)
 
         if (this.state.isLoading) {
             return (
@@ -152,9 +153,8 @@ export default class PlantProductPage extends Component {
                 
             )
         }
-
-        const buttonValues = this.updateButtons(plant._id, user);
-        // console.log("BUTONSVALUES", buttonValues)
+        
+        const buttonValues = this.updateButtons(plant._id);
 
         return (
             <div className='plantProductPage'>
@@ -232,16 +232,9 @@ export default class PlantProductPage extends Component {
 
                             {/* Have this  plant at home */}
                             {user && ( buttonValues.hasHousePlant &&
-                            <button onClick={this.handleDeletePlant} className="btn_ppp"> This plant is no longer in my home </button> ||
+                            <button onClick={this.handleClickHomePlant} className="btn_ppp"> This plant is no longer in my home </button> ||
                             <button onClick={this.handleClickHomePlant} className="btn_ppp"> Have this plant at home! </button> ) ||
                             <button onClick={this.handleClickHomePlant} className="btn_ppp"> Have this plant at home new user! </button>}
-                            
-                            {/* Error message - deleting */}
-                            {this.state.deleteMessage &&
-                            <div className="deletePlant">
-                                <p>Are you sure you want to delete this plant? </p>
-                                <Link to='/dashboard/your-plants'> Yes </Link>
-                            </div>}
                         </div>
                         
                     </div>
