@@ -33,7 +33,7 @@ export default class PlantProductPage extends Component {
         plantService.get(`/${this.props.match.params.id}`).then(res => {
             // Check if user is logged in
             if (this.props.user) {
-                console.log('hi')
+                // console.log('hi')
                 populateUserInformation(this.props.user._id).then(foundUser => {
                     // console.log('User', foundUser)
                     this.setState({

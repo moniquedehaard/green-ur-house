@@ -81,7 +81,7 @@ export function removeFromWishlist(userId, plantId) {
 
 // Populate information based on user
 export function populateUserInformation(userId) {
-  console.log('hi  from  service')
+  // console.log('hi  from  service')
   return authService
     .get(`/allInformationUser/${userId}`)
     .then(res => res.data)

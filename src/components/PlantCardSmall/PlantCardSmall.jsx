@@ -24,6 +24,8 @@ const PlantCardSmall = (props) => {
                             <i className="far fa-heart"></i>
                         </div>
                     </button>
+
+                    <button></button>
                 </div>
             </div>
             

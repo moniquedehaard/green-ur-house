@@ -14,10 +14,9 @@ function HomePage(props) {
       </div>
     
       <div className="homepage_right">
-        <div className="homepage_img">
-          <img src="plants.jpg" alt="leafs.jpg"/>
-        </div>
-        
+        {/* <div style={{width:'100%', height:'100%'}}>
+          
+        </div>   */}
       </div>
     </div>
   );

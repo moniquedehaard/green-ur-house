@@ -117,7 +117,7 @@ class App extends React.Component {
           <Route
             exact
             path='/plants'
-            render={RouterProps => <PlantPage {...RouterProps} user={this.state.user} />}
+            render={RouterProps => <PlantPage {...RouterProps} user={this.state.user} handleUser={this.handleStateUser} />}
           />
           <Route
             exact
@@ -167,6 +167,7 @@ class App extends React.Component {
             path='/dashboard/favorite-plants'
             component={D_FavoritePlants} 
             user={this.state.user}
+            handleUser={this.handleStateUser} 
           /> 
           <ProtectedRoute
             exact
