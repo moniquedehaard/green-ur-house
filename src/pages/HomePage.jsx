@@ -9,6 +9,7 @@ function HomePage(props) {
         <Header user={props.user} />
         <div className="homepage_textBlock">
           <h1> "Plants give us oxygen for the lungs and the soul."</h1>
+          <br/>
           <p> Linda Solegato</p>
         </div>
       </div>

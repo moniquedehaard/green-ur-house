@@ -52,8 +52,9 @@ export default class PlantPage extends Component {
     }
 
     // Click on wishlist
-    handleClick = (event) => {
+    handleClick = (id) => {
         const { user } = this.props
+        console.log(event.target)
 
         if (!user) {
             this.props.history.push("/auth/login")
@@ -61,11 +62,11 @@ export default class PlantPage extends Component {
 
         if (user) {
             // Find if favorite is in user array
-            const fav = user.favoritePlants.find(el => el === event.target.id) ? true : false;
+            const fav = user.favoritePlants.find(el => el === id) ? true : false;
 
             if (fav) {
                 // Remove from db
-                removeFromWishlist(user._id, event.target.id)
+                removeFromWishlist(user._id, id)
                     .then(res => {
                         this.props.handleUser(res.updatedUser)
                     }).catch(err => console.log('ERROR FROM REMOVING WISHLIST', err))
@@ -73,7 +74,7 @@ export default class PlantPage extends Component {
             // Clicked on add to wishlist
             if (!fav) {
                 // Add to db
-                addToWishlist(user._id, event.target.id)
+                addToWishlist(user._id,id)
                     .then(res => {
                         this.props.handleUser(res.updatedUser)
                     })
@@ -83,7 +84,7 @@ export default class PlantPage extends Component {
     }
 
 
-    handleClickHomePlant = (event) => {
+    handleClickHomePlant = (id) => {
         const { user } = this.state
         // user should be logged in/create account
         if (!user) {
@@ -92,12 +93,12 @@ export default class PlantPage extends Component {
 
         if (user) {
             // Find if favorite is in user home array
-            const home = user.homePlants.find(el => el.species === event.target.id) ? true : false;
+            const home = user.homePlants.find(el => el.species === id) ? true : false;
             
             // Users delete plants from home
             if (home) {
                 //--> GET NOTIFICATION DO YOU REALLY WANT TO DELETE THIS PLANT
-                const numberOfPlants = user.homePlants.filter(el => el.species === event.target.id)
+                const numberOfPlants = user.homePlants.filter(el => el.species === id)
                 // console.log(numberOfPlants)
                 if (numberOfPlants.length > 1) {
                    this.props.history.push("/dashboard/your-plants") 
@@ -110,7 +111,7 @@ export default class PlantPage extends Component {
             
             if (!home) {
                 // --> THIS SHOULD GO TO THE FORM
-                const plant = this.state.plants.filter(el => el._id === event.target.id)
+                const plant = this.state.plants.filter(el => el._id === id)
                 this.props.history.push({ pathname: '/your-plants/create', plant: plant[0].latinName });
             }
 
@@ -167,40 +168,46 @@ export default class PlantPage extends Component {
 
                 <div className="plantpage_content_block">
                     <h1> all houseplants </h1>
+                    <br />
+                    <br/>
 
                     {/* Search bar needed */}
                     <SearchBar search={this.state.search} handleChange={this.handleChange}/>
 
                     {/*  Plant block with all plants */}
-                    <div className="plantBlock">
+                    <div className="block__cards">
                         {filteredPlants.map(el => {
                             {/* return <PlantCardSmall key={el._id} plant={el} /> */ }
                             return (
-                                <div className="test" key={el._id}>
-                                    <div className="plantImage">
-                                        {/* <img className="plant_pic" src={el.pictures[0]} alt={el.latinName}/> */}
+                                <div className="card__homePlant" key={el._id}>
+                                    <div className="card_top">
+                                        <div className="card_img">
+                                            <img src={el.pictures[0]} alt={el.latinName}/>
+                                        </div>
+
+                                        <div className="card__buttonblock">
+                                            {/* Favorite plant */}
+                                            {user && ( buttonValues[el._id].hasFavPlant &&
+                                            <button onClick={()=>this.handleClick(`${el._id}`)} className="btn_round" style={{marginTop:'20px' ,backgroundColor:"rgb(170,138,75)"}} > <i className="far fa-heart"></i> </button> ||
+                                            <button onClick={()=>this.handleClick(`${el._id}`)} className="btn_round" style={{marginTop:'20px'}}> <i className="far fa-heart"></i> </button> ) ||
+                                            <button onClick={() => this.handleClick(`${el._id}`)} className="btn_round" style={{ marginTop: '20px' }}> <i className="far fa-heart"></i></button>}
+                                            
+                                            {/* Have this  plant at home */}
+                                            {user && ( buttonValues[el._id].hasHousePlant &&
+                                            <button onClick={()=> this.handleClickHomePlant(`${el._id}`)} className="btn_round" style={{marginTop:'20px' ,backgroundColor:"rgb(170,138,75)"}}> <i className="fas fa-leaf"></i> </button> ||
+                                            <button onClick={()=> this.handleClickHomePlant(`${el._id}`)} className="btn_round" style={{ marginTop: '20px' }}> <i className="fas fa-leaf"></i> </button> ) ||
+                                            <button onClick={()=> this.handleClickHomePlant(`${el._id}`)} className="btn_round" style={{ marginTop: '20px' }}><i className="fas fa-leaf"></i> </button>}
+
+                                        </div>
                                     </div>
-
-                                    {/* <button onClick={() => console.log('add your  plant to fav card')} className="btn_gb"> fav </button> */}
-                                    {/* <button onClick={() => console.log('add to homeplant card')} className="btn_gb"> homeplant yes</button> */}
                                     
-                                    {/* Favorite plant */}
-                                    {user && ( buttonValues[el._id].hasFavPlant &&
-                                    <button onClick={this.handleClick} className="btn_gb" id={el._id}> Remove from wislist </button> ||
-                                    <button onClick={this.handleClick} className="btn_gb" id={el._id}> Add to wislist! </button> ) ||
-                                    <button onClick={this.handleClick} className="btn_gb" id={el._id}> Add to wislist new user </button>}
-                                    
-                                    {/* Have this  plant at home */}
-                                    {user && ( buttonValues[el._id].hasHousePlant &&
-                                    <button onClick={this.handleClickHomePlant} className="btn_gb" id={el._id}> This plant is no longer in my home </button> ||
-                                    <button onClick={this.handleClickHomePlant} className="btn_gb" id={el._id}> Have this plant at home! </button> ) ||
-                                    <button onClick={this.handleClickHomePlant} className="btn_gb" id={el._id}> Have this plant at home new user! </button>}
-                                    
-                                    <div className="text_block">
-                                        <h2> {el.latinName} </h2> 
-                                        <Link to={`/plants/${el._id}`} className='LinkButton'> Learn more </Link>
-                                    </div>   
-
+                                    <div className="card_bottom">
+                                        <h3 style={{fontSize: '32px', fontWeight:'600'}}>{el.latinName}</h3>
+                                        <div style={{display:'flex', alignItems:'baseline',justifyContent:'space-between'}}>
+                                            <h2 style={{color:'rgb(240, 242, 244)'}}> n </h2>
+                                            <Link className="btn__link" to={`/plants/${el._id}`}> Learn more...</Link>  
+                                        </div>
+                                    </div>
                                 </div>
                             )
                         })}

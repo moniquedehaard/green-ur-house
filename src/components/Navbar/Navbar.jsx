@@ -28,13 +28,24 @@ const Navbar = (props) => {
       
       {/* Menu topics */}
       <ul className="nav_links">
-        <li> 
+        {/* <li> 
           <Link className="nav_linkHeader" to='/dashboard'> 
             <div className="main-nav__icon">
                <i className="fas fa-columns"></i>
             </div>
             <div className="main-nav__menu">
               dashboard
+            </div>
+            </Link>
+        </li> */}
+
+        <li> 
+          <Link className="nav_linkHeader" to='/plants'> 
+            <div className="main-nav__icon">
+               <i className="fas fa-columns"></i>
+            </div>
+            <div className="main-nav__menu">
+              all plants
             </div>
             </Link>
         </li>
