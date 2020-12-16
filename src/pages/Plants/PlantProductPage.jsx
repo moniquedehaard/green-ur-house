@@ -217,7 +217,7 @@ export default class PlantProductPage extends Component {
                                     <div className="main-nav__icon_ppp">
                                         <i className="fas fa-cat"></i>
                                     </div>
-                                    {plant.toxicForPets? <p> not safe for your pets</p> : <p>Safe for your pet</p>}
+                                    {plant.toxicForPets? <p> not safe for your pets</p> : <p> safe for your pet</p>}
                                 </div>
 
                             </div>
@@ -239,7 +239,7 @@ export default class PlantProductPage extends Component {
                     </div>
 
                     {/* Button GO BACK */}
-                    <div className="buttonBlock">
+                    <div>
                         <button onClick={() => this.props.history.goBack()} className="btn_gb"> go back </button>
 
                         {/* <div className="like_block"></div> */}

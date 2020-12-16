@@ -44,6 +44,7 @@ export default class Signup extends Component {
     return (
       <div className="homepage">
         <div className="homepage_left">
+          
           <Header user={this.props.user} />
 
           <div className="form">
@@ -80,7 +81,7 @@ export default class Signup extends Component {
               />
               <br />
               <br/>
-
+{/* 
               <label htmlFor="uploadedImage">Your picture</label>
               <br/>
               <input
@@ -91,7 +92,7 @@ export default class Signup extends Component {
                 onChange={this.handleInputChange}
               />
               <br />
-              <br/>
+              <br/> */}
 
               {this.state.error && (
                 <div className="error-block">
@@ -105,6 +106,8 @@ export default class Signup extends Component {
               </button>
             </form>
           </div>
+        </div>
+        <div className="homepage_right">
         </div>
       </div>
     );

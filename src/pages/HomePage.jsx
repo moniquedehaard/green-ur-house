@@ -11,6 +11,16 @@ function HomePage(props) {
           <h1> "Plants give us oxygen for the lungs and the soul."</h1>
           <br/>
           <p> Linda Solegato</p>
+
+          <div style={{
+            width: '550px', margin: '150px 0 0 100px'}}>
+            <p
+              style={{
+                fontSize: '30px',
+                fontWeight: '300',
+                fontStyle: "italic"
+              }}> green(ur)house is about plants, learning the different species, collect your own homeplants and know the right way to take care of them. </p>
+          </div>
         </div>
       </div>
     

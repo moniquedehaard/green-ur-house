@@ -27,7 +27,7 @@
   width: 60vw;
   height: 100vh;
   /* float: left; */
-  background-image: url("../assets/plants.jpg");
+  background-image: url("../assets/test.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -74,7 +74,7 @@
 .ppp_plantcard {
   height: 500px;
   padding-left: 40px;
-  width: 1200px;
+  width: 1300px;
   margin-top: 50px;
   /* background-color: pink; */
 

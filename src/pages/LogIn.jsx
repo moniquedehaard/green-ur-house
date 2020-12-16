@@ -93,9 +93,6 @@ export default class Login extends Component {
         </div>
 
         <div className="homepage_right">
-          <div className="homepage_img">
-            <img src="../plants.jpg" alt="leafs.jpg"/>
-          </div>
         </div>  
       </div>
     );

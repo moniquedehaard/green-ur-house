@@ -107,7 +107,7 @@ export default class Dashboard_PlantPage extends Component {
                                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
                                         {el.nickname !== '' && <h1>{el.nickname}</h1>}
                                         {el.nickname ==='' && <h1 style={{color:'rgb(240, 242, 244)'}}> n </h1>}
-                                        <Link className="btn__link" to="/"> Read more...</Link>  
+                                        <Link className="btn__link" to={`/plants/${el.species._id}`}> Read more...</Link>  
                                     </div>
                                    
                                 </div>
