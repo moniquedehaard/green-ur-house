@@ -7,9 +7,9 @@ import "../styling.css"
 export default class CreateFormPlants extends Component {
     state = {
         plant: this.props.location.plant,
-        nickname: "",
-        room: "",
-        notes: "",
+        nickname: "Unknown",
+        room: "Unknown",
+        notes: "Unknown",
     }
 
     // Submit plant form -> go to favorite plants

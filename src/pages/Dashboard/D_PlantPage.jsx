@@ -104,8 +104,9 @@ export default class Dashboard_PlantPage extends Component {
                                     
                                 <div className="card_bottom">
                                     <h3>{el.species.latinName}</h3>
-                                    <div style={{display:'flex', alignItems:'baseline',justifyContent:'space-between'}}>
-                                        <h1>{el.nickname}</h1>
+                                    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                                        {el.nickname !== '' && <h1>{el.nickname}</h1>}
+                                        {el.nickname ==='' && <h1 style={{color:'rgb(240, 242, 244)'}}> n </h1>}
                                         <Link className="btn__link" to="/"> Read more...</Link>  
                                     </div>
                                    
