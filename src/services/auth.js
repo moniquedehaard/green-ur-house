@@ -63,11 +63,46 @@ export function logout() {
     .catch(internalServerError);
 }
 
+// Add plant to wishtlist
 export function addToWishlist(userId, plantId) {
-  console.log(userId)
-  console.log(plantId)
   return authService
     .patch(`addToWishlist/${userId}`, { 'plantId': plantId })
     .then(res => res.data)
+    .catch(err => console.log(err))
+}
+
+// Remove plant from wishlist
+export function removeFromWishlist(userId, plantId) {
+  return authService
+    .patch(`removeFromWishlist/${userId}`, { 'plantId': plantId })
+    .then(res => res.data)
+    .catch(err => console.log(err))
+}
+
+// Populate information based on user
+export function populateUserInformation(userId) {
+  // console.log('hi  from  service')
+  return authService
+    .get(`/allInformationUser/${userId}`)
+    .then(res => res.data)
+    .catch(err => console.log(err))
+}
+
+// Add plant to homeplants
+export function addToPlantsHome(userId, plantId) {
+  return authService
+    .patch(`addToPlantsHome/${userId}`, { 'plantId': plantId })
+    .then(res => res.data)
+    .catch(err => console.log(err))
+}
+
+// Remove plant from homeplants
+export function removePlantHome(userId, plantId) {
+  return authService
+    .patch(`removePlantsHome/${userId}`, { 'plantId': plantId })
+    .then(res => {
+      console.log('AUTH SERVICE', res.data)
+      return res.data
+    })
     .catch(err => console.log(err))
 }

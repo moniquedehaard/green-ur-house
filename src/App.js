@@ -9,6 +9,7 @@ import * as PATHS from "./utils/paths";
 // Components
 import LoadingComponent from "./components/Loading";
 import Navbar from "./components/Navbar/Navbar";
+import Header  from "./components/Header/Header"
 
 /// PAGES
 import HomePage from "./pages/HomePage";
@@ -23,6 +24,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import D_PlantPage from "./pages/Dashboard/D_PlantPage";
 import D_FavoritePlants from "./pages/Dashboard/D_FavoritePlant";
 import D_Account from "./pages/Dashboard/D_Account";
+import CreateFormPlants from "./pages/Form/CreateFormPlants";
+import EditFormPlants from "./pages/Form/EditFormPlants";
+import DeleteFormPlants from "./pages/Form/DeleteFormPlants";
 
 
 class App extends React.Component {
@@ -89,26 +93,62 @@ class App extends React.Component {
     });
   };
 
+  handleStateUser = (updatedUser) => {
+    this.setState({
+      user: updatedUser
+    })
+  }
+
   render() {
     if (this.state.isLoading) {
-      return <LoadingComponent />;
+      return < LoadingComponent />;
     }
+    console.log('User from app.js', this.state.user)
 
     return (
       <div className="App">
         <Navbar handleLogout={this.handleLogout} user={this.state.user} />
+        {/* <Header user={this.state.user}/> */}
         {/* <Header> */}
         <Switch>
-          <NormalRoute exact path='/' component={HomePage} />
+          <NormalRoute exact path='/' component={HomePage} user={this.state.user} />
 
           {/* Plantpages */}
-          <Route exact path='/plants' component={PlantPage} user={this.setState.user}/>
+          <Route
+            exact
+            path='/plants'
+            render={RouterProps => <PlantPage {...RouterProps} user={this.state.user} handleUser={this.handleStateUser} />}
+          />
           <Route
             exact
             path='/plants/:id'
-            render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user}/>}
+            render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user} handleUser={this.handleStateUser}/>}
           />
-          
+
+          {/* Form about plants */}
+          <ProtectedRoute
+            exact
+            path='/your-plants/create'
+            component={CreateFormPlants}
+            user={this.state.user}
+            handleUser={this.handleStateUser}
+          />
+          <ProtectedRoute
+            exact
+            path='/your-plants/edit/:id'
+            component={EditFormPlants}
+            user={this.state.user}
+            handleUser={this.handleStateUser}
+          />
+          <ProtectedRoute
+            exact
+            path='/your-plants/delete/:id'
+            component={DeleteFormPlants}
+            user={this.state.user}
+            handleUser={this.handleStateUser}
+          />
+        
+   
           {/* Dashboard */}
           <ProtectedRoute
             exact
@@ -127,6 +167,7 @@ class App extends React.Component {
             path='/dashboard/favorite-plants'
             component={D_FavoritePlants} 
             user={this.state.user}
+            handleUser={this.handleStateUser} 
           /> 
           <ProtectedRoute
             exact

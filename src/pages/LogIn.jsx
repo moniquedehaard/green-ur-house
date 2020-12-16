@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { login } from "../services/auth";
+import Header from "../components/Header/Header.jsx"
 import "./Signup";
+import "./styling.css"
 
 export default class Login extends Component {
   state = {
@@ -30,48 +32,71 @@ export default class Login extends Component {
       localStorage.setItem("accessToken", res.data.accessToken);
       this.props.authenticate(res.data.user);
       this.props.history.push("/");
+      // this.props.history.goForward();
     });
   };
 
   render() {
     return (
-      <div>
-        <h1>Log In</h1>
-        <form onSubmit={this.handleFormSubmission} className="signup__form">
-          <label htmlFor="input-username">Username</label>
-          <input
-            id="input-username"
-            type="text"
-            name="username"
-            placeholder="username"
-            value={this.state.username}
-            onChange={this.handleInputChange}
-            required
-          />
+      <div className="homepage">
+        <div className="homepage_left">
+          <Header user={this.props.user} />
 
-          <label htmlFor="input-password">Password</label>
-          <input
-            id="input-password"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleInputChange}
-            required
-            minLength="8"
-          />
+          <div className="form">
+            <h1> login </h1>
+            <br />
+            <br />
+            
+            {/* Start form */}
+            <form onSubmit={this.handleFormSubmission} className="signup__form">
+              <label htmlFor="input-username">Username</label>
+              <br/>
+                <input
+                 id="input-username"
+                 type="text"
+                 name="username"
+                 placeholder="username"
+                 value={this.state.username}
+                 onChange={this.handleInputChange}
+                 required
+              />
+              <br />
+              <br/>
 
-          {this.state.error && (
-            <div className="error-block">
-              <p>There was an error submiting the form:</p>
-              <p>{this.state.error.message}</p>
-            </div>
-          )}
+              <label htmlFor="input-password">Password</label>
+              <br/>
+              <input
+                id="input-password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                required
+                minLength="8"
+              />
 
-          <button className="button__submit" type="submit">
-            Submit
-          </button>
-        </form>
+              {this.state.error && (
+                <div className="error-block">
+                  <p>There was an error submiting the form:</p>
+                  <p>{this.state.error.message}</p>
+                </div>
+              )}
+              <br />
+              <br/>
+              
+              <button className="btn_gb" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div className="homepage_right">
+          <div className="homepage_img">
+            <img src="../plants.jpg" alt="leafs.jpg"/>
+          </div>
+        </div>  
       </div>
     );
   }

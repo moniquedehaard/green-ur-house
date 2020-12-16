@@ -6,7 +6,6 @@ const SearchBar = (props) => {
 
     return (
         <div className='searchbar'>
-            <h2> Search</h2>
             <input
                 value={search}
                 name='search'

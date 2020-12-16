@@ -1,0 +1,31 @@
+.header {
+  height: 100px;
+  width: 100%;
+  /* background-color: pink; */
+  padding: 0 20px 0 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linkHeader {
+  text-decoration: none;
+  color: rgb(17, 33, 29);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(80, 103, 104);
+}
+
+.links {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h3 {
+  color: rgb(50, 78, 66);
+}

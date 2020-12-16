@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Header from '../../components/Header/Header';
+
+import "../styling.css"
 
 export default class Dashboard extends Component {
     render() {
         return (
-            <div>
-                <h1> Hello, this is your dashboard </h1>
-                <h2> To do list </h2>
-                <br/>
-                <Link to='/dashboard/your-plants'> Your plants </Link>
-                <br/>
-                <Link to='/dashboard/favorite-plants'> Your favorite plants</Link>
-                <br/>
-                <Link to='/dashboard/account'> Your Account</Link>
+            <div className="dashboard">
+                <Header user={this.props.user} />
+                
+                <div className="dashboard_content">
+                    <h1> to do </h1>
+                </div>
             </div>
         )
     }
