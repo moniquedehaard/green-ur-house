@@ -174,7 +174,7 @@ export default class CreateFormPlants extends Component {
                 <option value="Garden">Garden</option>
                 <option value="Toilet">Toilet</option>
                 <option value="Hall">Hall</option>
-                <option value="Hall">Else</option>
+                <option value="Else">Else</option>
               </select>
 
               <br />
