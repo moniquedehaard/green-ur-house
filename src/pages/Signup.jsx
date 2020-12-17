@@ -42,7 +42,7 @@ export default class Signup extends Component {
   };
 
   render() {
-    console.log(this.state.error);
+    // console.log(this.state.error);
     return (
       <div className="homepage">
         <div className="homepage_left">

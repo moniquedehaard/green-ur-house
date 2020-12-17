@@ -19,7 +19,7 @@ export default class D_FavoritePlant extends Component {
     // auth service that populates favoritePlants
     populateUserInformation(user._id).then((res) => {
       // array
-      console.log("Response from api", res.foundUser.favoritePlants);
+      // console.log("Response from api", res.foundUser.favoritePlants);
       this.setState({
         favPlants: res.foundUser.favoritePlants,
         isLoading: false,
@@ -48,8 +48,8 @@ export default class D_FavoritePlant extends Component {
 
   render() {
     const { favPlants } = this.state;
-    console.log(favPlants);
-    console.log(this.props.user);
+    // console.log(favPlants);
+    // console.log(this.props.user);
     if (this.state.isLoading) {
       return (
         <div className="loading_block">
