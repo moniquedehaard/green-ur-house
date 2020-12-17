@@ -23,9 +23,9 @@ export default class Header extends Component {
                 <div className="header">
                 <Link to="/" className="linkHeader title"> green(ur)house </Link>
                 
-                    <div className="links">
-                        <Link className="linkHeader" to="/plants"> See all plants </Link>
-                    </div>
+                    {/* <div className="links">
+                        <Link className="linkHeader" to="/plants"> see all plants </Link>
+                    </div> */}
                 </div>
                 
             )

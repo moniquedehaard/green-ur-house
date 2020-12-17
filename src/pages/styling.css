@@ -27,7 +27,7 @@
   width: 60vw;
   height: 100vh;
   /* float: left; */
-  background-image: url("../assets/plants.jpg");
+  background-image: url("../assets/test.jpg");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -44,7 +44,7 @@
 
 /* Plantpage with all plants */
 .plantPage {
-  width: 100vw;
+  width: 90vw;
 }
 
 .plantpage_content_block {
@@ -74,7 +74,8 @@
 .ppp_plantcard {
   height: 500px;
   padding-left: 40px;
-  width: 80%;
+  width: 1300px;
+  margin-top: 50px;
   /* background-color: pink; */
 
   display: flex;
@@ -91,8 +92,8 @@
 
 .ppp_information {
   /* margin-left: 30px; */
-  margin: 30px 0 30px 30px;
-  height: 90%;
+  margin: 0 0 30px 30px;
+  height: 100%;
   width: 600px;
 
   display: flex;
@@ -101,11 +102,15 @@
 }
 
 .ppp_information_block {
-  width: 500px;
+  width: 400px;
 }
 
 .ppp_information_block h3 {
   color: rgb(80, 103, 104);
+}
+
+.ppp_names {
+  margin-bottom: 25px;
 }
 
 .ppp_names h1 {
@@ -117,11 +122,15 @@
   font-weight: 200;
 }
 
+.ppp_about {
+  margin-bottom: 25px;
+}
+
 .main-nav__icon_ppp {
   font-size: 25px;
   color: rgb(80, 103, 104);
   width: 30px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 .main-nav__icon_ppp i {
@@ -130,6 +139,7 @@
 
 .ppp_property {
   display: flex;
+  align-items: center;
   margin: 3px 0;
 }
 
@@ -142,6 +152,15 @@
   border-radius: 10px;
 }
 
+.buttonBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.like_block {
+  display: flex;
+}
+
 /* GO BACK BUTTON */
 .btn_gb {
   color: white;
@@ -150,6 +169,7 @@
   padding: 8px 30px;
   border-style: none;
   border-radius: 20px;
+  outline: none;
 }
 
 /* DASHBOARD */
@@ -218,6 +238,7 @@ option {
 
 .warning h3 {
   font-weight: 700;
+  color: rgb(170, 138, 75);
 }
 
 .test {
@@ -312,4 +333,8 @@ option {
 .btn_round i {
   font-size: 16px;
   color: white;
+}
+
+.ppp_buttons {
+  display: flex;
 }

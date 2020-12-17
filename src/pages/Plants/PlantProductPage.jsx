@@ -209,15 +209,15 @@ export default class PlantProductPage extends Component {
                                 <div className="ppp_property">
                                     <div className="main-nav__icon_ppp">
                                         <i className="fas fa-wind"></i>
-                                    </div>
-                                    <p>{`${plant.strongAirPurifier}`}</p>
+                                </div>
+                                    {plant.strongAirPurifier ? <p> strong air purifier</p> : <p> medium/low air purifier</p>}
                                 </div>
 
                                 <div className="ppp_property">
                                     <div className="main-nav__icon_ppp">
                                         <i className="fas fa-cat"></i>
                                     </div>
-                                    <p>{`${plant.toxicForPets}`}</p>
+                                    {plant.toxicForPets? <p> not safe for your pets</p> : <p> safe for your pet</p>}
                                 </div>
 
                             </div>
@@ -225,22 +225,27 @@ export default class PlantProductPage extends Component {
                         <div className="ppp_buttons">
                             {/* Favorite plant */}
                             {user && ( buttonValues.hasFavPlant &&
-                            <button onClick={this.handleClick} className="btn_ppp"> Remove from wislist </button> ||
-                            <button onClick={this.handleClick} className="btn_ppp"> Add to wislist! </button> ) ||
-                            <button onClick={this.handleClick} className="btn_ppp"> Add to wislist new user </button>}
+                            <button onClick={this.handleClick} className="btn_round" style={{marginTop:'20px' ,backgroundColor:"rgb(170,138,75)"}} > <i className="far fa-heart"></i> </button> ||
+                            <button onClick={this.handleClick} className="btn_round" style={{marginTop:'20px'}}> <i className="far fa-heart"></i> </button> ) ||
+                            <button onClick={this.handleClick} className="btn_round" style={{ marginTop: '20px' }}> <i className="far fa-heart"></i></button>}
                             
-
                             {/* Have this  plant at home */}
                             {user && ( buttonValues.hasHousePlant &&
-                            <button onClick={this.handleClickHomePlant} className="btn_ppp"> This plant is no longer in my home </button> ||
-                            <button onClick={this.handleClickHomePlant} className="btn_ppp"> Have this plant at home! </button> ) ||
-                            <button onClick={this.handleClickHomePlant} className="btn_ppp"> Have this plant at home new user! </button>}
+                            <button onClick={this.handleClickHomePlant} className="btn_round" style={{marginTop:'20px' ,backgroundColor:"rgb(170,138,75)"}}> <i className="fas fa-leaf"></i> </button> ||
+                            <button onClick={this.handleClickHomePlant} className="btn_round" style={{ marginTop: '20px' }}> <i className="fas fa-leaf"></i> </button> ) ||
+                            <button onClick={this.handleClickHomePlant} className="btn_round" style={{ marginTop: '20px' }}><i className="fas fa-leaf"></i> </button>}
                         </div>
                         
                     </div>
 
                     {/* Button GO BACK */}
-                    <button onClick={() => this.props.history.goBack()} className="btn_gb"> go back </button>
+                    <div>
+                        <button onClick={() => this.props.history.goBack()} className="btn_gb"> go back </button>
+
+                        {/* <div className="like_block"></div> */}
+
+                    </div>
+                    
                     
                     </div>
                     
