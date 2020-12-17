@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { signup } from "../services/auth";
-import "./auth.css";
+// import "./auth.css";
 
-import Header from "../components/Header/Header.jsx"
-import "./styling.css"
+import Header from "../components/Header/Header.jsx";
+import "./styling.css";
 
 export default class Signup extends Component {
   state = {
@@ -25,26 +25,27 @@ export default class Signup extends Component {
     const credentials = {
       username: this.state.username,
       password: this.state.password,
-      image: this.state.uploadedImage
+      image: this.state.uploadedImage,
     };
 
     signup(credentials).then((res) => {
       // successful signup
-      console.log(res);
       if (!res.status) {
         // unsuccessful signup
+        this.setState({ error: res.errorMessage });
+      } else {
+        localStorage.setItem("accessToken", res.data.accessToken);
+        this.props.authenticate(res.data.user);
+        this.props.history.push("/");
       }
-      localStorage.setItem("accessToken", res.data.accessToken);
-      this.props.authenticate(res.data.user);
-      this.props.history.push("/");
     });
   };
 
   render() {
+    console.log(this.state.error);
     return (
       <div className="homepage">
         <div className="homepage_left">
-          
           <Header user={this.props.user} />
 
           <div className="form">
@@ -55,7 +56,7 @@ export default class Signup extends Component {
             {/* start form */}
             <form onSubmit={this.handleFormSubmission} className="auth__form">
               <label htmlFor="input-username">Username</label>
-              <br/>
+              <br />
               <input
                 id="input-username"
                 type="text"
@@ -66,9 +67,9 @@ export default class Signup extends Component {
                 required
               />
               <br />
-              <br/>
+              <br />
               <label htmlFor="input-password">Password</label>
-              <br/>
+              <br />
               <input
                 id="input-password"
                 type="password"
@@ -80,35 +81,24 @@ export default class Signup extends Component {
                 minLength="8"
               />
               <br />
-              <br/>
-{/* 
-              <label htmlFor="uploadedImage">Your picture</label>
-              <br/>
-              <input
-                id="uploadedImage"
-                type="file"
-                name="uploadedImage"
-                value={this.state.uploadedImage}
-                onChange={this.handleInputChange}
-              />
               <br />
-              <br/> */}
-
-              {this.state.error && (
-                <div className="error-block">
-                  <p>There was an error submiting the form:</p>
-                  <p>{this.state.error.message}</p>
-                </div>
-              )}
 
               <button className="btn_gb" type="submit">
                 Submit
               </button>
             </form>
+
+            <br />
+            <br />
+            {this.state.error && (
+              <div className="warning">
+                <h3>There was an error submiting the form:</h3>
+                <h3>{this.state.error}</h3>
+              </div>
+            )}
           </div>
         </div>
-        <div className="homepage_right">
-        </div>
+        <div className="homepage_right"></div>
       </div>
     );
   }
