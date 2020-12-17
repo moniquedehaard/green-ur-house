@@ -9,7 +9,7 @@ import * as PATHS from "./utils/paths";
 // Components
 import LoadingComponent from "./components/Loading";
 import Navbar from "./components/Navbar/Navbar";
-import Header  from "./components/Header/Header"
+import Header from "./components/Header/Header";
 
 /// PAGES
 import HomePage from "./pages/HomePage";
@@ -17,8 +17,8 @@ import LogIn from "./pages/LogIn";
 import ProtectedPage from "./pages/ProtectedPage";
 import Signup from "./pages/Signup";
 // Plants
-import PlantPage from "./pages/Plants/PlantPage"
-import PlantProductPage from "./pages/Plants/PlantProductPage"
+import PlantPage from "./pages/Plants/PlantPage";
+import PlantProductPage from "./pages/Plants/PlantProductPage";
 // Dashboard
 import Dashboard from "./pages/Dashboard/Dashboard";
 import D_PlantPage from "./pages/Dashboard/D_PlantPage";
@@ -27,7 +27,6 @@ import D_Account from "./pages/Dashboard/D_Account";
 import CreateFormPlants from "./pages/Form/CreateFormPlants";
 import EditFormPlants from "./pages/Form/EditFormPlants";
 import DeleteFormPlants from "./pages/Form/DeleteFormPlants";
-
 
 class App extends React.Component {
   state = {
@@ -95,15 +94,15 @@ class App extends React.Component {
 
   handleStateUser = (updatedUser) => {
     this.setState({
-      user: updatedUser
-    })
-  }
+      user: updatedUser,
+    });
+  };
 
   render() {
     if (this.state.isLoading) {
-      return < LoadingComponent />;
+      return <LoadingComponent />;
     }
-    console.log('User from app.js', this.state.user)
+    // console.log('User from app.js', this.state.user)
 
     return (
       <div className="App">
@@ -111,74 +110,90 @@ class App extends React.Component {
         {/* <Header user={this.state.user}/> */}
         {/* <Header> */}
         <Switch>
-          <NormalRoute exact path='/' component={HomePage} user={this.state.user} />
+          <NormalRoute
+            exact
+            path="/"
+            component={HomePage}
+            user={this.state.user}
+          />
 
           {/* Plantpages */}
           <Route
             exact
-            path='/plants'
-            render={RouterProps => <PlantPage {...RouterProps} user={this.state.user} handleUser={this.handleStateUser} />}
+            path="/plants"
+            render={(RouterProps) => (
+              <PlantPage
+                {...RouterProps}
+                user={this.state.user}
+                handleUser={this.handleStateUser}
+              />
+            )}
           />
           <Route
             exact
-            path='/plants/:id'
-            render={RouterProps => <PlantProductPage {...RouterProps} user={this.state.user} handleUser={this.handleStateUser}/>}
+            path="/plants/:id"
+            render={(RouterProps) => (
+              <PlantProductPage
+                {...RouterProps}
+                user={this.state.user}
+                handleUser={this.handleStateUser}
+              />
+            )}
           />
 
           {/* Form about plants */}
           <ProtectedRoute
             exact
-            path='/your-plants/create'
+            path="/your-plants/create"
             component={CreateFormPlants}
             user={this.state.user}
             handleUser={this.handleStateUser}
           />
           <ProtectedRoute
             exact
-            path='/your-plants/edit/:id'
+            path="/your-plants/edit/:id"
             component={EditFormPlants}
             user={this.state.user}
             handleUser={this.handleStateUser}
           />
           <ProtectedRoute
             exact
-            path='/your-plants/delete/:id'
+            path="/your-plants/delete/:id"
             component={DeleteFormPlants}
             user={this.state.user}
             handleUser={this.handleStateUser}
           />
-        
-   
+
           {/* Dashboard */}
           <ProtectedRoute
             exact
-            path='/dashboard'
-            component={Dashboard} 
+            path="/dashboard"
+            component={Dashboard}
             user={this.state.user}
-          /> 
+          />
           <ProtectedRoute
             exact
-            path='/dashboard/your-plants'
-            component={D_PlantPage} 
+            path="/dashboard/your-plants"
+            component={D_PlantPage}
             user={this.state.user}
-          /> 
+          />
           <ProtectedRoute
             exact
-            path='/dashboard/favorite-plants'
-            component={D_FavoritePlants} 
+            path="/dashboard/favorite-plants"
+            component={D_FavoritePlants}
             user={this.state.user}
-            handleUser={this.handleStateUser} 
-          /> 
+            handleUser={this.handleStateUser}
+          />
           <ProtectedRoute
             exact
-            path='/dashboard/account'
+            path="/dashboard/account"
             component={D_Account}
             user={this.state.user}
-          /> 
+          />
 
           <NormalRoute
             exact
-            path='/auth/signup'
+            path="/auth/signup"
             authenticate={this.authenticate}
             component={Signup}
           />

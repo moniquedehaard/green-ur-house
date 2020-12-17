@@ -16,33 +16,41 @@ export default class D_Account extends Component {
     // }
 
     return (
-      <div className="dashboard">
-        <Header user={this.props.user} />
+      <div className="homepage">
+        <div className="homepage_left">
+          <Header user={this.props.user} />
 
-        <div className="dashboard_content">
-          <h1> your account </h1>
-
-          <br />
-          <button
-            onClick={() => this.props.history.goBack()}
-            className="btn_gb"
-          >
-            {" "}
-            go back{" "}
-          </button>
-
-          <h3> Username</h3>
-          <p> {this.props.user.username}</p>
-          <br />
-
-          <h3> Image </h3>
-          <p> {this.props.user.profilePic}</p>
-
-          <br />
-          <Link to="/dashboard/account/edit"> Edit your account</Link>
-          <br />
-          <Link to="/dashboard/account/edit-password"> Edit your password</Link>
+          <div className="form">
+            <div className="title_block">
+              <h1> your account </h1>
+              <button
+                className="btn_gb"
+                onClick={() => this.props.history.goBack()}
+              >
+                {" "}
+                Go back{" "}
+              </button>
+            </div>
+            <br />
+            <br />
+            <h3> Username</h3>
+            <p> {this.props.user.username}</p>
+            <br />
+            <br />
+            <br />
+            <Link className="btn__link" style={{ fontSize: "20px" }} to="#">
+              {" "}
+              Edit your account
+            </Link>
+            <br />
+            <br />
+            <Link className="btn__link" style={{ fontSize: "20px" }} to="#">
+              {" "}
+              Edit your password
+            </Link>
+          </div>
         </div>
+        <div className="homepage_right"></div>
       </div>
     );
   }

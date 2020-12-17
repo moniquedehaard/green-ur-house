@@ -6,7 +6,9 @@ import "../styling.css";
 
 export default class CreateFormPlants extends Component {
   state = {
-    plant: this.props.location.plant,
+    plant: this.props.location.plant
+      ? this.props.location.plant
+      : "Monstera Delicioasa",
     nickname: "",
     room: "",
     notes: "",
@@ -74,7 +76,6 @@ export default class CreateFormPlants extends Component {
   };
 
   render() {
-    // console.log(this.props)
     return (
       <div className="homepage">
         <div className="homepage_left">
@@ -111,12 +112,31 @@ export default class CreateFormPlants extends Component {
                     {" "}
                     Monstera Delicioasa
                   </option>
-                  <option value="Calathea"> Calathea</option>
-                  <option value="Alocasia Zebrina"> Alocasia Zebrina</option>
-                  <option value="Ficus Lyrata"> Ficus Lyrata</option>
+                  <option value="Calathea Orbifolia">
+                    {" "}
+                    Calathea Orbifolia
+                  </option>
+                  <option value="Alocasia Zebrina"> Alocasia Zebrina </option>
+                  <option value="Ficus Lyrata"> Ficus Lyrata </option>
                   <option value="Pilea Peperomioides">
                     Pilea Peperomioides
                   </option>
+                  <option value="Strelitzia Nicolai">Strelitzia Nicolai</option>
+                  <option value="Musa Dwarf Cavendisch">
+                    Musa Dwarf Cavendisch
+                  </option>
+                  <option value="Zamioculcas"> Zamioculcas </option>
+                  <option value="Coffea Arabica">Coffea Arabica</option>
+                  <option value="Sansevieria Laurentii">
+                    Sansevieria Laurentii
+                  </option>
+                  <option value="Spathiphyllum">Spathiphyllum</option>
+                  <option value="Phlebodium"> Phlebodium </option>
+                  <option value="Phalaenopsis Asian Pearl">
+                    Phalaenopsis Asian Pearl
+                  </option>
+                  <option value="Chlorophytum"> Chlorophytum </option>
+                  <option value="Yucca Elephantipes">Yucca Elephantipes</option>
                 </select>
               </label>
 
