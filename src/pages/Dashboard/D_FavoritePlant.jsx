@@ -66,6 +66,7 @@ export default class D_FavoritePlant extends Component {
         <div className="dashboard_content">
           <h1> your wishlist </h1>
           <br />
+          <br />
           <button
             onClick={() => this.props.history.goBack()}
             className="btn_gb"
