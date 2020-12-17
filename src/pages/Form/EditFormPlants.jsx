@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-import React, { Component } from 'react'
-import Header from '../../components/Header/Header';
-import { getHomePlantById, updateHomePlant } from '../../services/homePlants'
-import { Link } from 'react-router-dom'
-import "../styling.css"
-=======
 import React, { Component } from "react";
 import Header from "../../components/Header/Header";
 import { getHomePlantById, updateHomePlant } from "../../services/homePlants";
+import { Link } from "react-router-dom";
 import "../styling.css";
->>>>>>> development
 
 export default class EditFormPlants extends Component {
   state = {
